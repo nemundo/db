@@ -1,15 +1,19 @@
 {
-    "name": "nemundo/db",
-    "description": "Database Access",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Nemundo",
-            "email": "urs.lang@gmail.com"
-        }
-    ],
-    "require": {},
-    "autoload": {
-        "psr-4": {"Nemundo\\Db\\": "src/"}
+  "name": "nemundo/db",
+  "description": "Database Access",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Nemundo",
+      "email": "urs.lang@gmail.com"
     }
+  ],
+  "require": {
+    "nemundo/core": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Nemundo\\Db\\": "src/"
+    }
+  }
 }

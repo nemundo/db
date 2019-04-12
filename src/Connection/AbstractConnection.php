@@ -14,7 +14,7 @@ use Nemundo\Db\Log\SqlLog;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
 
 
-abstract class AbstractConnection //////extends AbstractBaseClass
+abstract class AbstractConnection extends AbstractBaseClass
 {
 
     /**

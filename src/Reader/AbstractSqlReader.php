@@ -15,7 +15,7 @@ abstract class AbstractSqlReader extends AbstractDbDataSource
      */
     protected $sqlStatement;
 
-    private $list=[];
+    //private $list=[];
 
     public function __construct()
     {
@@ -50,11 +50,11 @@ abstract class AbstractSqlReader extends AbstractDbDataSource
     public function getData()
     {
 
-        $this->loadData();
+        //$this->loadData();
 
-        return $this->list;
+        //return $this->list;
 
-        //return parent::getData();
+        return parent::getData();
     }
 
 

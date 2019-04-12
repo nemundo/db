@@ -14,7 +14,7 @@ use Nemundo\Db\Sql\Order\SqlOrderTrait;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
 
 
-class SelectQuery ////extends AbstractBaseClass
+class SelectQuery extends AbstractBaseClass
 {
 
     use SqlJoinTrait;

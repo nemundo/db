@@ -32,7 +32,7 @@ trait ConnectionTrait
     {
 
         if ($this->connection == null) {
-            (new LogMessage())->writeError('Keine Connection definiert');
+            (new LogMessage())->writeError('No Connection defined');
             return false;
         }
 

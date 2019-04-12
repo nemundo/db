@@ -5,7 +5,7 @@ namespace Nemundo\Db\Index;
 
 use Nemundo\Core\Base\AbstractBaseClass;
 
-abstract class AbstractPrimaryIndex ////extends AbstractBaseClass
+abstract class AbstractPrimaryIndex extends AbstractBaseClass
 {
 
     /**

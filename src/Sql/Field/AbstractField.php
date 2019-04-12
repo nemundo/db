@@ -7,7 +7,7 @@ use Nemundo\Core\Base\AbstractBaseClass;
 use Nemundo\Db\Reader\AbstractDataReader;
 
 // AbstractSqlField bzw. AbstractDataField
-abstract class AbstractField ////extends AbstractBaseClass
+abstract class AbstractField extends AbstractBaseClass
 {
 
     /**

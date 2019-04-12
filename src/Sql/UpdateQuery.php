@@ -9,7 +9,7 @@ use Nemundo\Db\Sql\Join\SqlJoinTrait;
 use Nemundo\Db\Sql\Order\SqlOrderTrait;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
 
-class UpdateQuery ////extends AbstractBaseClass
+class UpdateQuery extends AbstractBaseClass
 {
 
     use SqlJoinTrait;

@@ -5,25 +5,26 @@ namespace Nemundo\Db\Row;
 use Nemundo\Core\Base\DataSource\AbstractRow;
 use Nemundo\Db\Sql\Field\AbstractField;
 
-abstract class AbstractDataRow //extends AbstractRow
+abstract class AbstractDataRow extends AbstractRow
 {
 
-
+/*
     protected $data;
 
     public function __construct($data)
     {
         $data = array_change_key_case($data);
         $this->data = $data;
-    }
+    }*/
 
 
-    protected function getHeader()
+   /* protected function getHeader()
     {
         $list = array_keys($this->data);
         return $list;
     }
 
+    /*
     protected function getValue($name)
     {
 
@@ -39,9 +40,11 @@ abstract class AbstractDataRow //extends AbstractRow
 
         return $value;
 
-    }
+    }*/
 
 
+
+   /*
     protected function getValueByNumber($number)
     {
 
@@ -71,6 +74,6 @@ abstract class AbstractDataRow //extends AbstractRow
 
         return $this->getValue($fieldName);
 
-    }
+    }*/
 
 }
