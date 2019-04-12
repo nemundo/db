@@ -9,10 +9,6 @@ $conn->connectionParameter->user = 'root';
 $conn->connectionParameter->password = '';
 $conn->connectionParameter->database = 'paranautik';
 
-
-
-
-
 $dataReader = new \Nemundo\Db\Reader\DataReader();
 $dataReader->connection = $conn;
 $dataReader->tableName = 'flight_year';

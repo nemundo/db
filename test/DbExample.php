@@ -6,7 +6,7 @@ require '../vendor/autoload.php';
 $conn = new \Nemundo\Db\Provider\MySql\Connection\MySqlConnection();
 $conn->connectionParameter->host = 'localhost';
 $conn->connectionParameter->user = 'root';
-$conn->connectionParameter->password = '';
+$conn->connectionParameter->password = '1';
 $conn->connectionParameter->database = 'test';
 
 $db = new \Nemundo\Db\Provider\MySql\Database\MySqlDatabase();

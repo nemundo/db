@@ -52,15 +52,16 @@ abstract class AbstractConnection //////extends AbstractBaseClass
     {
 
         if (!$this->connected) {
-            try {
+            //try {
                 $this->pdo = new \PDO($dataSourceName, $user, $password, $option);
                 $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                 $this->connected = true;
-            } catch (\PDOException $e) {
-                $errorMessage = 'Connect Error: ' . $e->getMessage();
-                (new LogMessage())->writeError($errorMessage);
-                exit;
-            }
+            //} catch (\PDOException $e) {
+              //  $errorMessage = 'Connect Error: ' . $e->getMessage();
+
+                //(new LogMessage())->writeError($errorMessage);
+                //exit;
+            //}
         }
 
     }
