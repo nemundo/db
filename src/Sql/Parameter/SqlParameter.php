@@ -7,7 +7,7 @@ use Nemundo\Core\Base\AbstractBaseClass;
 
 // SqlField
 // SqlKey
-class SqlParameter ////extends AbstractBaseClass
+class SqlParameter extends AbstractBaseClass
 {
 
     /**

@@ -8,7 +8,7 @@ use Nemundo\Core\Directory\TextDirectory;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
 
 
-class InsertQuery ////extends AbstractBaseClass
+class InsertQuery extends AbstractBaseClass
 {
 
     /**

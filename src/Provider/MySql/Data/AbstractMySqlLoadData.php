@@ -3,7 +3,6 @@
 namespace Nemundo\Db\Provider\MySql\Data;
 
 
-use Nemundo\Core\Csv\Writer\CsvWriter;
 use Nemundo\Core\File\Path;
 use Nemundo\Core\File\UniqueFilename;
 use Nemundo\Core\Type\Text\Text;
@@ -13,7 +12,6 @@ use Nemundo\Db\Sql\Query\FieldNameList;
 use Nemundo\Project\ProjectConfig;
 
 
-// mit ausgelagertem Csv???
 abstract class AbstractMySqlLoadData extends AbstractDbBase
 {
 
@@ -32,11 +30,6 @@ abstract class AbstractMySqlLoadData extends AbstractDbBase
      */
     private $fieldNameList;
 
-    /**
-     * @var CsvWriter
-     */
-   // private $csvWriter;
-
 
     public function __construct()
     {
@@ -49,8 +42,6 @@ abstract class AbstractMySqlLoadData extends AbstractDbBase
             ->addPath((new UniqueFilename())->getUniqueFilename('csv'))
             ->getFilename();
 
-        //$this->csvWriter = new CsvWriter($this->csvFilename);
-
     }
 
 
@@ -61,13 +52,8 @@ abstract class AbstractMySqlLoadData extends AbstractDbBase
     }
 
 
-
-
-
     public function importData()
     {
-
-        //$this->csvWriter->closeFile();
 
         $filename = (new Text($this->csvFilename))
             ->replace('\\', '/')
@@ -80,16 +66,7 @@ abstract class AbstractMySqlLoadData extends AbstractDbBase
     OPTIONALLY ENCLOSED BY \'"\'
     (' . $this->fieldNameList->getFieldName() . ');';
 
-
-        //  FIELDS TERMINATED BY ';'
-        // FIELDS OPTIONALLY ENCLOSED BY '"'
-
         $this->connection->execute($sql);
-
-
-        //(new Delay())->delay(5);
-        //(new File($this->filename))->deleteFile();
-
 
     }
 

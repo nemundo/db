@@ -6,7 +6,7 @@ namespace Nemundo\Db\Provider\MySql\Explain;
 use Nemundo\Core\Base\AbstractBase;
 use Nemundo\Db\Reader\SqlReader;
 
-class MySqlExplain //extends AbstractBase
+class MySqlExplain extends AbstractBase
 {
 
     /**

@@ -6,7 +6,7 @@ namespace Nemundo\Db\Sql\Parameter;
 use Nemundo\Core\Base\AbstractBase;
 
 
-class SqlStatement //extends AbstractBase
+class SqlStatement extends AbstractBase
 {
 
     /**

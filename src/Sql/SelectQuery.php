@@ -4,7 +4,6 @@ namespace Nemundo\Db\Sql;
 
 
 use Nemundo\Core\Base\AbstractBaseClass;
-use Nemundo\Core\Directory\TextDirectory;
 use Nemundo\Db\Filter\Filter;
 use Nemundo\Db\Sql\Field\AbstractField;
 use Nemundo\Db\Sql\Field\ColumnField;
@@ -93,21 +92,17 @@ class SelectQuery extends AbstractBaseClass
             $this->addField(new WildcardField());
         }
 
-        //$fieldList = new TextDirectory();
-
-        $fieldList=[];
+        $fieldList = [];
         foreach ($this->fieldList as $fieldSql) {
-            //$fieldList->addValue($fieldSql->getFieldName());
-            $fieldList[]=$fieldSql->getFieldName();
+            $fieldList[] = $fieldSql->getFieldName();
         }
 
 
         // SQL_NO_CACHE
 
 
-
         //$sql = 'SELECT ' . $fieldList->getTextWithSeperator(',') . ' FROM `' . $this->tableName . '`';
-        $sql = 'SELECT ' .join($fieldList, ',') . ' FROM `' . $this->tableName . '`';
+        $sql = 'SELECT ' . join($fieldList, ',') . ' FROM `' . $this->tableName . '`';
 
 
         // Alias Table Name

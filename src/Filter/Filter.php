@@ -8,7 +8,7 @@ use Nemundo\Db\Sql\Field\AbstractField;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
 
 // DbFilter
-class Filter ////extends AbstractBaseClass
+class Filter extends AbstractBaseClass
 {
 
     /**
@@ -20,9 +20,7 @@ class Filter ////extends AbstractBaseClass
 
     public function __construct()
     {
-
         $this->sqlStatement = new SqlStatement();
-
     }
 
 

@@ -2,9 +2,6 @@
 
 namespace Nemundo\Db\Provider\MySql\Table;
 
-use Nemundo\Core\Directory\TextDirectory;
-use Nemundo\Core\Log\LogMessage;
-use Nemundo\Core\Type\Text\Text;
 use Nemundo\Db\Index\AutoIncrementIdPrimaryIndex;
 use Nemundo\Db\Index\NumberIdPrimaryIndex;
 use Nemundo\Db\Index\TextIdPrimaryIndex;
@@ -126,15 +123,14 @@ class MySqlTable extends AbstractTable
 
 
     /**
-     * @return string[]   // TextDirectory
+     * @return string[]
      */
     public function getSql()
     {
 
         $primaryIndexDataType = null;
 
-        //switch ($this->primaryIndex->getClassName()) {
-        switch (get_class($this->primaryIndex)) {
+        switch ($this->primaryIndex->getClassName()) {
 
             case AutoIncrementIdPrimaryIndex::class:
                 $primaryIndexDataType = 'int NOT NULL AUTO_INCREMENT';
@@ -152,19 +148,6 @@ class MySqlTable extends AbstractTable
                 $primaryIndexDataType = 'varchar(36) NOT NULL';
                 break;
 
-            /*
-            case PrimaryIndex::AUTO_INCREMENT_ID:
-                $primaryKeyDataType = 'int NOT NULL AUTO_INCREMENT';
-                break;
-            case PrimaryIndex::UNIQUE_ID:
-                $primaryKeyDataType = 'varchar(36) NOT NULL';
-                break;
-            case PrimaryIndex::NUMBER_ID:
-                $primaryKeyDataType = 'int NOT NULL';
-                break;
-            case PrimaryIndex::TEXT_ID:
-                $primaryKeyDataType = 'varchar(36) NOT NULL';
-                break;*/
         }
 
 
@@ -176,18 +159,18 @@ class MySqlTable extends AbstractTable
 //        $sql = new TextDirectory();
 //        $sql->addValue($createTable);
 
-        $sql=[];
+        $sql = [];
         $sql[] = $createTable;
 
         foreach ($this->fieldList as $field) {
             //$sql->addValue($field->getSql());
-            $sql[]= $field->getSql();
+            $sql[] = $field->getSql();
         }
 
         // Index
         foreach ($this->indexList as $index) {
             //$sql->addValue($index->getSql());
-            $sql[]= $index->getSql();
+            $sql[] = $index->getSql();
         }
 
         return $sql;
@@ -220,6 +203,8 @@ class MySqlTable extends AbstractTable
             $sqlParameter->sql = $sql;
             $this->connection->execute($sqlParameter);
         }
+
+        return $this;
 
     }
 
@@ -263,8 +248,6 @@ AND (TABLE_NAME = "' . $this->tableName . '")';
         $sqlParameter->sql = 'DROP TABLE IF EXISTS `' . $this->tableName . '`;';
         $this->connection->execute($sqlParameter);
     }
-
-
 
 
 }

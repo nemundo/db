@@ -7,15 +7,8 @@ use Nemundo\Core\Base\AbstractBase;
 use Nemundo\Db\Sql\Field\AbstractField;
 
 
-// Order
-// SqlOrder
-class SqlOrder //extends AbstractBase
+class SqlOrder extends AbstractBase
 {
-
-    /**
-     * @var string
-     */
-    //public $fieldName;
 
     /**
      * @var AbstractField
@@ -30,6 +23,7 @@ class SqlOrder //extends AbstractBase
 
     public function getSql()
     {
+
         $sql = $this->field->getConditionFieldName() . ' ' . $this->sortOrder;
 
 
@@ -38,9 +32,6 @@ class SqlOrder //extends AbstractBase
             //$this->fieldName = '';
             $sql = SortOrder::RANDOM;
         }
-
-        //$sql = $this->fieldName . ' ' . $this->sortOrder;
-
 
         return $sql;
 

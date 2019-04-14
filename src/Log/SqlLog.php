@@ -10,7 +10,7 @@ use Nemundo\Core\Log\LogConfig;
 use Nemundo\Core\Type\Text\Text;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
 
-class SqlLog ////extends AbstractBaseClass
+class SqlLog extends AbstractBaseClass
 {
 
     /**

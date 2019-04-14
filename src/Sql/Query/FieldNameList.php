@@ -5,7 +5,7 @@ namespace Nemundo\Db\Sql\Query;
 
 use Nemundo\Core\Base\AbstractBase;
 
-class FieldNameList //extends AbstractBase
+class FieldNameList extends AbstractBase
 {
 
     private $fieldNameList = [];

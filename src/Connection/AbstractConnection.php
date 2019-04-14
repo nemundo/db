@@ -4,11 +4,7 @@ namespace Nemundo\Db\Connection;
 
 use Nemundo\Core\Base\AbstractBaseClass;
 use Nemundo\Core\Debug\Debug;
-use Nemundo\Core\File\TextFile;
-use Nemundo\Core\Log\LogConfig;
 use Nemundo\Core\Log\LogMessage;
-use Nemundo\Core\Time\Stopwatch;
-use Nemundo\Core\Type\DateTime\DateTime;
 use Nemundo\Db\DbConfig;
 use Nemundo\Db\Log\SqlLog;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
@@ -53,14 +49,14 @@ abstract class AbstractConnection extends AbstractBaseClass
 
         if (!$this->connected) {
             //try {
-                $this->pdo = new \PDO($dataSourceName, $user, $password, $option);
-                $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-                $this->connected = true;
+            $this->pdo = new \PDO($dataSourceName, $user, $password, $option);
+            $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            $this->connected = true;
             //} catch (\PDOException $e) {
-              //  $errorMessage = 'Connect Error: ' . $e->getMessage();
+            //  $errorMessage = 'Connect Error: ' . $e->getMessage();
 
-                //(new LogMessage())->writeError($errorMessage);
-                //exit;
+            //(new LogMessage())->writeError($errorMessage);
+            //exit;
             //}
         }
 
@@ -104,7 +100,7 @@ abstract class AbstractConnection extends AbstractBaseClass
 
 
         // Auslagern LogSlowQuery
-        if (DbConfig::$slowQueryLog) {
+        /*if (DbConfig::$slowQueryLog) {
 
             $queryTime = $time->stop();
 
@@ -118,7 +114,7 @@ abstract class AbstractConnection extends AbstractBaseClass
                 $file->addLine((new DateTime())->setNow()->getIsoDateFormat() . ';' . $queryTime . ';' . (new SqlLog())->getSql($sqlParameterList));
             }
 
-        }
+        }*/
 
         return $data;
 
@@ -221,8 +217,8 @@ abstract class AbstractConnection extends AbstractBaseClass
 // Fehlermeldung anzeigen
                 if ($showErrorMessage) {
                     $errorMessage = 'Query Error: ' . $error->getMessage() . 'Sql: ' . $sqlParameterList->sql;
-                    echo $errorMessage;
-                    //(new LogMessage())->writeError($errorMessage);
+                    //echo $errorMessage;
+                    (new LogMessage())->writeError($errorMessage);
                 }
             }
 

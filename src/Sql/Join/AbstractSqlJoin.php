@@ -6,7 +6,7 @@ namespace Nemundo\Db\Sql\Join;
 use Nemundo\Core\Base\AbstractBase;
 
 
-abstract class AbstractSqlJoin //extends AbstractBase
+abstract class AbstractSqlJoin extends AbstractBase
 {
 
     /**

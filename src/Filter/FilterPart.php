@@ -9,7 +9,7 @@ use Nemundo\Db\Sql\Parameter\SqlStatement;
 use Nemundo\Db\Sql\SqlConfig;
 
 
-class FilterPart //extends AbstractBase
+class FilterPart extends AbstractBase
 {
 
     /**
@@ -47,23 +47,6 @@ class FilterPart //extends AbstractBase
      */
     public $filterLink = FilterLink::AND_LINK;
 
-    /**
-     * @var bool
-     */
-    //public $openingBracket = false;
-
-    /**
-     * @var bool
-     */
-    //public $closingBracket = false;
-
-
-    //private $sql = '';
-
-    //private $variableName;
-
-    // private $fieldCount = 0;
-
 
     public function getSqlParameter(SqlStatement $sqlParameterList)
     {
@@ -74,18 +57,11 @@ class FilterPart //extends AbstractBase
         SqlConfig::$fieldCount++;
 
         if ($this->includeLink) {
-            $sqlParameterList->sql = $sqlParameterList->sql . ' ' . $this->filterLink . ' ';  // . $fieldName . ' ' . CompareType::EQUAL . ' :' . $variableName;
+            $sqlParameterList->sql = $sqlParameterList->sql . ' ' . $this->filterLink . ' ';
         }
 
         if ($this->includeParameter) {
-
-            //$sql = '';
-            //if ($this->openingBracket) {
-            //$sql = '(';
-            //}
-
             $sqlParameterList->sql = $sqlParameterList->sql . $fieldName . ' ' . $this->compareType . ' :' . $variableName;
-
             $sqlParameterList->addParameter($variableName, $this->value, $fieldName);
         } else {
             $sqlParameterList->sql = $sqlParameterList->sql . $fieldName . ' ' . $this->compareType;
