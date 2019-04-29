@@ -5,6 +5,10 @@ namespace Nemundo\Db\Provider\SqLite\Table;
 
 use Nemundo\Core\File\Directory;
 use Nemundo\Core\Type\File\File;
+use Nemundo\Db\Index\AutoIncrementIdPrimaryIndex;
+use Nemundo\Db\Index\NumberIdPrimaryIndex;
+use Nemundo\Db\Index\TextIdPrimaryIndex;
+use Nemundo\Db\Index\UniqueIdPrimaryIndex;
 use Nemundo\Db\Provider\SqLite\Field\SqLiteField;
 use Nemundo\Db\Provider\SqLite\Field\SqLiteFieldType;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
@@ -94,10 +98,35 @@ class SqLiteTable extends AbstractTable
             return;
         }
 
-        $sqlParameter = new SqlStatement();
-        $sqlParameter->sql = 'CREATE TABLE IF NOT EXISTS `' . $this->tableName . '` (`id` char(36), PRIMARY KEY (`id`));';
-        $this->connection->execute($sqlParameter);
 
+        $primaryIndexDataType = null;
+
+        switch ($this->primaryIndex->getClassName()) {
+
+            case AutoIncrementIdPrimaryIndex::class:
+                $primaryIndexDataType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
+                break;
+
+            case UniqueIdPrimaryIndex::class:
+                $primaryIndexDataType = 'varchar(36) PRIMARY KEY';
+                break;
+
+            case NumberIdPrimaryIndex::class:
+                $primaryIndexDataType = 'INTEGER PRIMARY KEY';
+                break;
+
+            case TextIdPrimaryIndex::class:
+                $primaryIndexDataType = 'varchar(36) PRIMARY KEY';
+                break;
+
+        }
+
+
+        $sqlParameter = new SqlStatement();
+        //$sqlParameter->sql = 'CREATE TABLE IF NOT EXISTS `' . $this->tableName . '` (`id` char(36), PRIMARY KEY (`id`));';
+        $sqlParameter->sql = 'CREATE TABLE IF NOT EXISTS `' . $this->tableName . '` (`id` ' . $primaryIndexDataType . ');';
+
+        $this->connection->execute($sqlParameter);
 
         foreach ($this->fieldList as $field) {
 
@@ -140,10 +169,8 @@ class SqLiteTable extends AbstractTable
     }
 
 
-
-    public function renameTableField($fieldName, $newFieldName) {
-
-
+    public function renameTableField($fieldName, $newFieldName)
+    {
 
 
     }

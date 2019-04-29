@@ -3,10 +3,11 @@
 namespace Nemundo\Db\Provider\SqLite\Field;
 
 
+use Nemundo\Core\Base\AbstractBase;
 use Nemundo\Db\Provider\SqLite\Table\SqLiteTable;
 
 
-class SqLiteField
+class SqLiteField extends AbstractBase
 {
 
     /**
@@ -20,6 +21,11 @@ class SqLiteField
     public $fieldType = SqLiteFieldType::TEXT;
 
     /**
+     * @var bool
+     */
+    public $allowNull = true;
+
+    /**
      * @var string
      */
     private $tableName;
@@ -31,8 +37,6 @@ class SqLiteField
             $this->tableName = $table->tableName;
             $table->addField($this);
         }
-        //$this->fieldType = new SqLiteFieldType();
-
 
     }
 
@@ -40,7 +44,14 @@ class SqLiteField
     public function getSql()
     {
 
-        $sql = 'ALTER TABLE `' . $this->tableName . '` ADD `' . $this->fieldName . '` ' . $this->fieldType . ';';
+        $sql = 'ALTER TABLE `' . $this->tableName . '` ADD `' . $this->fieldName . '` ' . $this->fieldType;
+
+        if (!$this->allowNull) {
+            $sql .= ' NOT NULL';
+        }
+
+        $sql .= ';';
+
         return $sql;
 
     }
