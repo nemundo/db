@@ -62,6 +62,7 @@ abstract class AbstractMySqlLoadData extends AbstractDbBase
         $sql = new SqlStatement();
         $sql->sql = 'LOAD DATA LOCAL INFILE "' . $filename . '" 
     INTO TABLE `' . $this->tableName . '`
+    CHARACTER SET UTF8
     FIELDS TERMINATED BY \';\'
     OPTIONALLY ENCLOSED BY \'"\'
     (' . $this->fieldNameList->getFieldName() . ');';
