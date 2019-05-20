@@ -6,7 +6,6 @@ use Nemundo\Db\Base\AbstractDbDataSource;
 use Nemundo\Db\Row\DataRow;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
 
-
 abstract class AbstractSqlReader extends AbstractDbDataSource
 {
 
@@ -14,8 +13,6 @@ abstract class AbstractSqlReader extends AbstractDbDataSource
      * @var SqlStatement
      */
     protected $sqlStatement;
-
-    //private $list=[];
 
     public function __construct()
     {
@@ -31,10 +28,6 @@ abstract class AbstractSqlReader extends AbstractDbDataSource
             return;
         }
 
-        /*if (!$this->checkProperty('sql')) {
-            return;
-        }*/
-
         $list = $this->connection->query($this->sqlStatement);
         foreach ($list as $listRow) {
             $row = new DataRow($listRow);
@@ -49,11 +42,6 @@ abstract class AbstractSqlReader extends AbstractDbDataSource
      */
     public function getData()
     {
-
-        //$this->loadData();
-
-        //return $this->list;
-
         return parent::getData();
     }
 
@@ -61,7 +49,7 @@ abstract class AbstractSqlReader extends AbstractDbDataSource
     public function getRow()
     {
 
-        $row = array();
+        $row = [];
         $this->getData();
 
         if ($this->hasItems()) {
