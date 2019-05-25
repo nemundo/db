@@ -26,6 +26,11 @@ abstract class AbstractMySqlLoadData extends AbstractDbBase
     public $tableName;
 
     /**
+     * @var bool
+     */
+    public $replace = false;
+
+    /**
      * @var FieldNameList
      */
     private $fieldNameList;
@@ -55,13 +60,22 @@ abstract class AbstractMySqlLoadData extends AbstractDbBase
     public function importData()
     {
 
+
+        // replace
+        // ignore
+
         $filename = (new Text($this->csvFilename))
             ->replace('\\', '/')
             ->getValue();
 
         $sql = new SqlStatement();
-        $sql->sql = 'LOAD DATA LOCAL INFILE "' . $filename . '" 
-    INTO TABLE `' . $this->tableName . '`
+        $sql->sql = 'LOAD DATA LOCAL INFILE "' . $filename . '" ';
+
+        if ($this->replace) {
+        $sql->sql .= 'REPLACE ';
+        }
+
+  $sql->sql .=  'INTO TABLE `' . $this->tableName . '`
     CHARACTER SET UTF8
     FIELDS TERMINATED BY \';\'
     OPTIONALLY ENCLOSED BY \'"\'

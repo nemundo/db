@@ -4,20 +4,12 @@ namespace Nemundo\Db\Provider\MySql\Data;
 
 
 use Nemundo\Core\Csv\Writer\CsvWriter;
-use Nemundo\Core\Debug\Debug;
 use Nemundo\Core\File\Path;
 use Nemundo\Core\File\UniqueFilename;
-use Nemundo\Project\ProjectConfig;
 
 
-// mit ausgelagertem Csv???
-class MySqlLoadData extends AbstractMySqlLoadData   // AbstractDbBase
+class MySqlLoadData extends AbstractMySqlLoadData
 {
-
-    /**
-     * @var string
-     */
-   // public $tmpPath;
 
     /**
      * @var CsvWriter
@@ -29,16 +21,11 @@ class MySqlLoadData extends AbstractMySqlLoadData   // AbstractDbBase
     {
 
         parent::__construct();
-        //$this->fieldNameList = new FieldNameList();
 
         $this->csvFilename = (new Path())
-            ->addPath($tmpPath)   //ProjectConfig::$tmpPath)
+            ->addPath($tmpPath)
             ->addPath((new UniqueFilename())->getUniqueFilename('csv'))
             ->getFilename();
-
-        //(new Debug())->write($csvFilename);
-
-        //exit;
 
         $this->csvWriter = new CsvWriter($this->csvFilename);
 
