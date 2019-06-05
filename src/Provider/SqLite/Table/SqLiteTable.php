@@ -30,58 +30,61 @@ class SqLiteTable extends AbstractTable
     }
 
 
-    public function addTextField($fieldName, $length = null)
+    public function addTextField($fieldName, $length = null, $allowNull = false)
     {
         $field = new SqLiteField($this);
         $field->fieldName = $fieldName;
         $field->fieldType = SqLiteFieldType::TEXT;
+        $field->allowNull = $allowNull;
         return $this;
     }
 
 
-    public function addLargeTextField($fieldName)
+    public function addLargeTextField($fieldName, $allowNull = false)
     {
-        $this->addTextField($fieldName);
+        $this->addTextField($fieldName, $allowNull);
     }
 
 
-    public function addNumberField($fieldName)
+    public function addNumberField($fieldName, $allowNull = false)
     {
         $field = new SqLiteField($this);
         $field->fieldName = $fieldName;
         $field->fieldType = SqLiteFieldType::INTEGER;
+        $field->allowNull = $allowNull;
         return $this;
     }
 
 
-    public function addDecimalNumberField($fieldName)
+    public function addDecimalNumberField($fieldName, $allowNull = false)
     {
         $field = new SqLiteField($this);
         $field->fieldName = $fieldName;
         $field->fieldType = SqLiteFieldType::REAL;
+        $field->allowNull = $allowNull;
         return $this;
     }
 
 
-    public function addYesNoField($fieldName)
+    public function addYesNoField($fieldName, $allowNull = false)
     {
-        $this->addNumberField($fieldName);
+        $this->addNumberField($fieldName, $allowNull);
         return $this;
     }
 
 
-    public function addDateField($fieldName)
+    public function addDateField($fieldName, $allowNull = false)
     {
         // TODO: Implement addDateField() method.
     }
 
 
-    public function addDateTimeField($fieldName)
+    public function addDateTimeField($fieldName, $allowNull = false)
     {
         // TODO: Implement addDateTimeField() method.
     }
 
-    public function addTimeField($fieldName)
+    public function addTimeField($fieldName, $allowNull = false)
     {
         // TODO: Implement addTimeField() method.
     }

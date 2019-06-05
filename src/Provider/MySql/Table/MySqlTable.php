@@ -37,67 +37,75 @@ class MySqlTable extends AbstractTable
     }
 
 
-    public function addTextField($fieldName, $length = 255)
+    public function addTextField($fieldName, $length = 255, $allowNull = false)
     {
         $field = new MySqlField($this);
         $field->fieldName = $fieldName;
         $field->fieldType = 'varchar(' . $length . ')';
+        $field->allowNull = $allowNull;
         return $this;
     }
 
-    public function addLargeTextField($fieldName)
+    public function addLargeTextField($fieldName, $allowNull = false)
     {
         $field = new MySqlField($this);
         $field->fieldName = $fieldName;
         $field->fieldType = 'longtext';
+        $field->allowNull = $allowNull;
         return $this;
     }
 
-    public function addYesNoField($fieldName)
+    public function addYesNoField($fieldName, $allowNull = false)
     {
         $field = new MySqlField($this);
         $field->fieldName = $fieldName;
         $field->fieldType = 'bool';
+        $field->allowNull = $allowNull;
         return $this;
     }
 
-    public function addDateField($fieldName)
+    public function addDateField($fieldName, $allowNull = false)
     {
         $field = new MySqlField($this);
         $field->fieldName = $fieldName;
         $field->fieldType = 'date';
+        $field->allowNull = $allowNull;
         return $this;
     }
 
-    public function addTimeField($fieldName)
+    public function addTimeField($fieldName, $allowNull = false)
     {
         $field = new MySqlField($this);
         $field->fieldName = $fieldName;
         $field->fieldType = 'time';
+        $field->allowNull = $allowNull;
         return $this;
     }
 
-    public function addDateTimeField($fieldName)
+    public function addDateTimeField($fieldName, $allowNull = false)
     {
         $field = new MySqlField($this);
         $field->fieldName = $fieldName;
         $field->fieldType = 'datetime';
+        $field->allowNull = $allowNull;
         return $this;
     }
 
-    public function addNumberField($fieldName)
+    public function addNumberField($fieldName, $allowNull = false)
     {
         $field = new MySqlField($this);
         $field->fieldName = $fieldName;
         $field->fieldType = 'int';
+        $field->allowNull = $allowNull;
         return $this;
     }
 
-    public function addDecimalNumberField($fieldName)
+    public function addDecimalNumberField($fieldName, $allowNull = false)
     {
         $field = new MySqlField($this);
         $field->fieldName = $fieldName;
         $field->fieldType = 'double';  //float
+        $field->allowNull = $allowNull;
         return $this;
     }
 

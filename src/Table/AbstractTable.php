@@ -19,12 +19,7 @@ abstract class AbstractTable extends AbstractDbBase
     /**
      * @var AbstractPrimaryIndex
      */
-    public $primaryIndex;  // = PrimaryIndex::AUTO_INCREMENT_ID;
-
-    /**
-     * @var string
-     */
-    //public $primaryKeyFieldName = 'id';
+    public $primaryIndex;
 
     /**
      * @var bool
@@ -50,50 +45,26 @@ abstract class AbstractTable extends AbstractDbBase
 
     abstract public function dropTable();
 
-    abstract public function addTextField($fieldName, $length = 255);
+    abstract public function addTextField($fieldName, $length = 255, $allowNull = false);
 
-    abstract public function addLargeTextField($fieldName);
+    abstract public function addLargeTextField($fieldName, $allowNull = false);
 
-    abstract public function addYesNoField($fieldName);
+    abstract public function addYesNoField($fieldName, $allowNull = false);
 
-    abstract public function addDateField($fieldName);
+    abstract public function addDateField($fieldName, $allowNull = false);
 
-    abstract public function addTimeField($fieldName);
+    abstract public function addTimeField($fieldName, $allowNull = false);
 
-    abstract public function addDateTimeField($fieldName);
+    abstract public function addDateTimeField($fieldName, $allowNull = false);
 
-    abstract public function addNumberField($fieldName);
+    abstract public function addNumberField($fieldName, $allowNull = false);
 
-    abstract public function addDecimalNumberField($fieldName);
-
-    /*
-
-    public function addCreatedTimestamp($fieldName)
-    {
-        $field = new MySqlField($this);
-        $field->fieldName = $fieldName;
-        $field->fieldType = 'timestamp';
-        $field->defaultValue = 'CURRENT_TIMESTAMP';
-        return $this;
-    }
-
-
-    public function addModifiedTimestamp($fieldName)
-    {
-        $field = new MySqlField($this);
-        $field->fieldName = $fieldName;
-        $field->fieldType = 'timestamp';
-        $field->defaultValue = 'CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP';
-        return $this;
-    }
-*/
-
+    abstract public function addDecimalNumberField($fieldName, $allowNull = false);
 
     public function addIndex(AbstractIndex $index)
     {
         $this->indexList[] = $index;
         return $this;
     }
-
 
 }
