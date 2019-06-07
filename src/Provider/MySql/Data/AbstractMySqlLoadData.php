@@ -73,7 +73,7 @@ abstract class AbstractMySqlLoadData extends AbstractDbBase
         $sql->sql = 'LOAD DATA LOCAL INFILE "' . $filename . '" ';
 
         if ($this->ignore) {
-            $sql->sql .= 'REPLACE ';
+            $sql->sql .= 'IGNORE ';
         }
 
         if ($this->replace) {
