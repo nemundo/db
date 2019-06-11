@@ -2,6 +2,7 @@
 
 namespace Nemundo\Db\Provider\MySql\Table;
 
+use Nemundo\Core\Debug\Debug;
 use Nemundo\Db\Index\AutoIncrementIdPrimaryIndex;
 use Nemundo\Db\Index\NumberIdPrimaryIndex;
 use Nemundo\Db\Index\TextIdPrimaryIndex;
@@ -39,6 +40,7 @@ class MySqlTable extends AbstractTable
 
     public function addTextField($fieldName, $length = 255, $allowNull = false)
     {
+        //(new Debug())->write($allowNull);
         $field = new MySqlField($this);
         $field->fieldName = $fieldName;
         $field->fieldType = 'varchar(' . $length . ')';

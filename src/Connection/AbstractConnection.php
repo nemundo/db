@@ -195,7 +195,20 @@ abstract class AbstractConnection extends AbstractBaseClass
 
                 $query = $this->pdo->prepare($sqlParameterList->sql);
                 foreach ($sqlParameterList->getParameterList() as $parameter) {
-                    $query->bindValue(':' . $parameter->key, $parameter->value);
+
+                    //(new Debug())->write($parameter->value);
+
+                    if (is_bool($parameter->value) ) {
+
+                        $query->bindValue(':' . $parameter->key, $parameter->value,\PDO::PARAM_BOOL);
+
+                    } else {
+                        $query->bindValue(':' . $parameter->key, $parameter->value);
+                    }
+
+                    //$query->bindValue(':' . $parameter->key, $parameter->value);
+
+
                 }
 
                 $query->execute();
@@ -217,8 +230,13 @@ abstract class AbstractConnection extends AbstractBaseClass
 // Fehlermeldung anzeigen
                 if ($showErrorMessage) {
                     $errorMessage = 'Query Error: ' . $error->getMessage() . 'Sql: ' . $sqlParameterList->sql;
+
                     //echo $errorMessage;
                     (new LogMessage())->writeError($errorMessage);
+                    //(new LogMessage())->writeError($sqlParameterList->get)
+
+                    (new Debug())->write($sqlParameterList->getParameterList());
+
                 }
             }
 
