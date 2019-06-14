@@ -6,6 +6,7 @@ namespace Nemundo\Db\Provider\MySql\Data;
 use Nemundo\Core\Csv\Writer\CsvWriter;
 use Nemundo\Core\File\Path;
 use Nemundo\Core\File\UniqueFilename;
+use Nemundo\Core\Type\File\File;
 
 
 class MySqlLoadData extends AbstractMySqlLoadData
@@ -46,6 +47,8 @@ class MySqlLoadData extends AbstractMySqlLoadData
 
         $this->csvWriter->closeFile();
         parent::importData();
+
+        (new File($this->csvFilename))->deleteFile();
 
     }
 
