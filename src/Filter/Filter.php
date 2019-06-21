@@ -239,41 +239,8 @@ class Filter extends AbstractBaseClass
     }
 
 
-    /*
-    public function andEqualOrGroup($fieldName, $valueList)
-    {
-
-        if (sizeof($valueList) > 0) {
-
-            if ($this->sql !== '') {
-                $this->sql = $this->sql . ' AND ';
-            }
-
-            $this->sql = $this->sql . ' (';
-
-            $count = 0;
-            foreach ($valueList as $value) {
-
-                $link = '';
-                if ($count > 0) {
-                    $link = 'OR';
-                }
-
-                $this->equal($fieldName, $value, '=', $link);
-                $count++;
-
-            }
-
-            $this->sql = $this->sql . ')';
-        }
-
-    }*/
-
-
     public function search($fieldName, $keyword)
     {
-
-
 
         /*$variableName = 'search';  // $this->getVariableName($fieldName);
         $this->sql = 'MATCH(' . $fieldName . ') AGAINST (:' . $variableName . ' IN BOOLEAN MODE)';
@@ -333,7 +300,6 @@ class Filter extends AbstractBaseClass
     }
 
 
-    //private function addFilter(Filter $filter, FilterLink $filterLink)
     private function addFilter(Filter $filter, $filterLink)
     {
 
