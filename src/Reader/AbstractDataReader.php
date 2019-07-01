@@ -4,6 +4,7 @@ namespace Nemundo\Db\Reader;
 
 
 use Nemundo\Core\Log\LogFile;
+use Nemundo\Core\Log\LogMessage;
 use Nemundo\Db\Filter\Filter;
 use Nemundo\Db\Row\DataRow;
 use Nemundo\Db\Sql\Field\AbstractField;
@@ -133,10 +134,12 @@ abstract class AbstractDataReader extends AbstractSqlReader
         $row = new DataRow($data);
 
         if (sizeof($data) == 0) {
-            //(new LogMessage())->writeError('GetRow: No returning Data. Table Name: ' . $this->tableName);
 
-            $message = 'GetRow: No returning Data. Table Name: ' . $this->tableName;
-            (new LogFile())->writeError($message);
+            (new LogMessage())->writeError('GetRow: No returning Data. Table Name: ' . $this->tableName);
+
+            //$message = 'GetRow: No returning Data. Table Name: ' . $this->tableName;
+            //(new LogFile())->writeError($message);
+            //(new LogMessage())->writeError($message);
         }
 
         return $row;
