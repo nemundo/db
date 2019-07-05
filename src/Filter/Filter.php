@@ -213,6 +213,21 @@ class Filter extends AbstractBaseClass
     }
 
 
+    public function orEqualOrGreater(AbstractField $type, $value)
+    {
+
+        $part = new FilterPart();
+        $part->type = $type;
+        $part->value = $value;
+        $part->compareType = FilterCompareType::GREATER_OR_EQUAL;
+        $part->filterLink = FilterLink::OR_LINK;
+        $this->addFilterPart($part);
+
+        return $this;
+
+    }
+
+
     public function andIsNull(AbstractField $type)
     {
 
