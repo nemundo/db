@@ -12,19 +12,10 @@ abstract class AbstractAggregateField extends AbstractField
      */
     public $aggregateField;
 
-
-    // roundFieldTrait
-
-
-    /**
-     * @var bool
-     */
-    //public $roundNumber = false;
-
     /**
      * @var int
      */
-    public $roundDecimal;  // = 2;
+    public $roundDecimal;
 
     /**
      * @var string
@@ -42,7 +33,6 @@ abstract class AbstractAggregateField extends AbstractField
 
         $sql = $this->aggregateFunction . '(' . $this->aggregateField->getConditionFieldName() . ') ';
 
-        //if ($this->roundNumber) {
         if ($this->roundDecimal !== null) {
             $sql = 'ROUND(' . $sql . ', ' . $this->roundDecimal . ') ';
         }
