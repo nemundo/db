@@ -24,6 +24,11 @@ abstract class AbstractPrimaryIndex extends AbstractBaseClass
      */
     public $primaryIndexLabel;
 
+    /**
+     * @var string
+     */
+    public $primaryIndexName;
+
 
     abstract protected function loadPrimaryIndex();
 
