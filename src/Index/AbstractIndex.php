@@ -12,6 +12,11 @@ abstract class AbstractIndex extends AbstractDbBase
     /**
      * @var string
      */
+    public $indexName;
+
+    /**
+     * @var string
+     */
     protected $tableName;
 
     /**
