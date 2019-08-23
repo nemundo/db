@@ -62,6 +62,10 @@ class SelectQuery extends AbstractBaseClass
      */
     public $having;
 
+    /**
+     * @var bool
+     */
+    public $quoteTableName=true;
 
     public function __construct()
     {
@@ -100,9 +104,14 @@ class SelectQuery extends AbstractBaseClass
 
         // SQL_NO_CACHE
 
+        $quote = '';
+        if ($this->quoteTableName) {
+            $quote = '`';
+        }
 
         //$sql = 'SELECT ' . $fieldList->getTextWithSeperator(',') . ' FROM `' . $this->tableName . '`';
-        $sql = 'SELECT ' . join($fieldList, ',') . ' FROM `' . $this->tableName . '`';
+        //$sql = 'SELECT ' . join($fieldList, ',') . ' FROM `' . $this->tableName . '`';
+        $sql = 'SELECT ' . join($fieldList, ',') . ' FROM '.$quote . $this->tableName .$quote;
 
 
         // Alias Table Name
