@@ -4,6 +4,7 @@ namespace Nemundo\Db\Provider\MySql\Database;
 
 use Nemundo\Db\Base\AbstractDbBase;
 use Nemundo\Db\Provider\MySql\Connection\MySqlConnection;
+use Nemundo\Db\Provider\MySql\Table\MySqlTableReader;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
 
 
@@ -80,6 +81,18 @@ class MySqlDatabase extends AbstractDbBase
         $sqlParamter->sql = 'DROP DATABASE IF EXISTS `' . $this->databaseName . '`;';
 
         $this->connection->execute($sqlParamter);
+    }
+
+
+    public function emptyDatabase()
+    {
+
+        $reader = new MySqlTableReader();
+        $reader->connection = $this->connection;
+        foreach ($reader->getData() as $table) {
+            $table->dropTable();
+        }
+
     }
 
 }
