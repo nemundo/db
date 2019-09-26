@@ -48,16 +48,19 @@ abstract class AbstractConnection extends AbstractBaseClass
     {
 
         if (!$this->connected) {
-            //try {
-            $this->pdo = new \PDO($dataSourceName, $user, $password, $option);
-            $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-            $this->connected = true;
-            //} catch (\PDOException $e) {
-            //  $errorMessage = 'Connect Error: ' . $e->getMessage();
 
-            //(new LogMessage())->writeError($errorMessage);
-            //exit;
-            //}
+            // auskommentieren, weshalb?
+
+            try {
+                $this->pdo = new \PDO($dataSourceName, $user, $password, $option);
+                $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+                $this->connected = true;
+            } catch (\PDOException $e) {
+                $errorMessage = 'Connect Error: ' . $e->getMessage();
+                (new LogMessage())->writeError($errorMessage);
+                exit;
+            }
+
         }
 
     }
@@ -198,9 +201,9 @@ abstract class AbstractConnection extends AbstractBaseClass
 
                     //(new Debug())->write($parameter->value);
 
-                    if (is_bool($parameter->value) ) {
+                    if (is_bool($parameter->value)) {
 
-                        $query->bindValue(':' . $parameter->key, $parameter->value,\PDO::PARAM_BOOL);
+                        $query->bindValue(':' . $parameter->key, $parameter->value, \PDO::PARAM_BOOL);
 
                     } else {
                         $query->bindValue(':' . $parameter->key, $parameter->value);
