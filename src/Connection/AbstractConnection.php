@@ -50,6 +50,7 @@ abstract class AbstractConnection extends AbstractBaseClass
         if (!$this->connected) {
 
             // auskommentieren, weshalb?
+            // Fehlermeldung bei Create Index etc.
 
             try {
                 $this->pdo = new \PDO($dataSourceName, $user, $password, $option);
