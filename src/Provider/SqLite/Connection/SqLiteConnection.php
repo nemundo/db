@@ -23,7 +23,7 @@ class SqLiteConnection extends AbstractConnection
 
     public function checkFilename() {
 
-        if (!(new File($this->filename))->exists()) {
+        if (!(new File($this->filename))->fileExists()) {
             (new LogMessage())->writeError('SqLite File does not exist. Filename: '.$this->filename);
             exit;
         }

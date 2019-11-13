@@ -24,7 +24,7 @@ class MySqlDumpRestore extends AbstractDbBase
         }
 
         $file = new File($this->filename);
-        if ($file->exists()) {
+        if ($file->fileExists()) {
 
             $command = 'mysql --user ' . $this->connection->connectionParameter->user . ' --password=' . $this->connection->connectionParameter->password . '  -h ' . $this->connection->connectionParameter->host . ' ' . $this->connection->connectionParameter->database . ' < ' . $this->filename;
 
