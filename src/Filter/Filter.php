@@ -7,7 +7,9 @@ use Nemundo\Core\Base\AbstractBaseClass;
 use Nemundo\Db\Sql\Field\AbstractField;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
 
-// DbFilter
+// DataFilter
+// AbstractFilter
+// loadFilter
 class Filter extends AbstractBaseClass
 {
 
