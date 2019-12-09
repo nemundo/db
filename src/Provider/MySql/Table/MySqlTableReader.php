@@ -13,6 +13,10 @@ use Nemundo\Db\Reader\SqlReader;
 class MySqlTableReader extends AbstractDbDataSource
 {
 
+
+    // database
+
+
     /**
      * @var string
      */

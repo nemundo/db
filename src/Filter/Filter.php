@@ -8,6 +8,7 @@ use Nemundo\Db\Sql\Field\AbstractField;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
 
 // DataFilter
+// DbFilter
 // AbstractFilter
 // loadFilter
 class Filter extends AbstractBaseClass
@@ -97,7 +98,6 @@ class Filter extends AbstractBaseClass
         $part->filterLink = FilterLink::OR_LINK;
         $this->addFilterPart($part);
 
-
         return $this;
 
     }
@@ -105,7 +105,6 @@ class Filter extends AbstractBaseClass
 
     public function andContainsLeft(AbstractField $type, $value)
     {
-        //$this->andContains($type, $value . '%');
 
         $part = new FilterPart();
         $part->type = $type;
@@ -119,7 +118,6 @@ class Filter extends AbstractBaseClass
 
     public function andContainsRight(AbstractField $type, $value)
     {
-        //$this->andContains($type, '%' . $value);
 
         $part = new FilterPart();
         $part->type = $type;
@@ -147,7 +145,6 @@ class Filter extends AbstractBaseClass
 
     public function orNotEqual(AbstractField $type, $value)
     {
-
 
         $part = new FilterPart();
         $part->type = $type;

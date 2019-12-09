@@ -24,5 +24,4 @@ class FilterCompareType
 
     const IS_NOT_NULL = 'IS NOT NULL';
 
-
 }
