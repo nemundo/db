@@ -73,32 +73,32 @@ abstract class AbstractConnection extends AbstractBaseClass
     }
 
 
-    public function execute(SqlStatement $sqlParameterList)
+    public function execute(SqlStatement $sqlStatement)
     {
-        $this->prepareQuery($sqlParameterList);
+        $this->prepareQuery($sqlStatement);
         $id = $this->pdo->lastInsertId();
         return $id;
     }
 
 
-    public function query(SqlStatement $sqlParameterList)
+    public function query(SqlStatement $sqlStatement)
     {
 
         if (DbConfig::$logQuery) {
-            (new SqlLog())->logSqlParameter($sqlParameterList);
+            (new SqlLog())->logSqlParameter($sqlStatement);
         }
 
 
         //$time = new Stopwatch();
 
         $data = [];
-        $query = $this->prepareQuery($sqlParameterList);
+        $query = $this->prepareQuery($sqlStatement);
         try {
             if (is_object($query)) {
                 $data = $query->fetchAll(\PDO::FETCH_ASSOC);
             }
         } catch (\PDOException $e) {
-            $errorMessage = 'Query Error: ' . $e->getMessage() . 'Sql: ' . $sqlParameterList->sql;
+            $errorMessage = 'Query Error: ' . $e->getMessage() . 'Sql: ' . $sqlStatement->sql;
             (new LogMessage())->writeError($errorMessage);
         }
 
