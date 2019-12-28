@@ -8,6 +8,7 @@ use Nemundo\Db\Reader\AbstractDataReader;
 class DistinctField extends AbstractField
 {
 
+    public $tableName;
 
     public function __construct(AbstractDataReader $reader = null)
     {
@@ -20,7 +21,8 @@ class DistinctField extends AbstractField
 
     public function getFieldName()
     {
-        $sql = 'DISTINCT todo_to_do.`id` distinct_id';
+
+        $sql = 'DISTINCT '.$this->tableName.'.`id` distinct_id';
         return $sql;
     }
 
