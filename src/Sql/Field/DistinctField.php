@@ -23,6 +23,7 @@ class DistinctField extends AbstractField
     {
 
         $sql = 'DISTINCT '.$this->tableName.'.`id` distinct_id';
+        //$sql = 'DISTINCT '.$this->aliasFieldName.'.`id` distinct_id';
         return $sql;
     }
 
