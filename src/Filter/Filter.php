@@ -29,14 +29,19 @@ class Filter extends AbstractBaseClass
 
     public function andFilter(Filter $filter)
     {
+
+        if ($filter->isNotEmpty()) {
         $this->addFilter($filter, FilterLink::AND_LINK);
+        }
         return $this;
     }
 
 
     public function orFilter(Filter $filter)
     {
-        $this->addFilter($filter, FilterLink::OR_LINK);
+        if ($filter->isNotEmpty()) {
+            $this->addFilter($filter, FilterLink::OR_LINK);
+        }
         return $this;
     }
 
