@@ -15,5 +15,4 @@ abstract class AbstractDbBase extends AbstractBase
         $this->loadConnection();
     }
 
-
 }
