@@ -29,6 +29,11 @@ abstract class AbstractDataValue extends AbstractDbBase
     public $field;
 
     /**
+     * @var SelectQuery
+     */
+    protected $select;
+
+    /**
      * @var Filter
      */
     protected $filter;
@@ -36,6 +41,7 @@ abstract class AbstractDataValue extends AbstractDbBase
     public function __construct()
     {
         parent::__construct();
+        $this->select = new SelectQuery();
         $this->filter = new Filter();
     }
 
@@ -47,18 +53,18 @@ abstract class AbstractDataValue extends AbstractDbBase
             return null;
         }
 
-        $query = new SelectQuery();
-        $query->tableName = $this->tableName;
-        $query->addField($this->field);
-        $query->filter = $this->filter;
-        $query->limit = 1;
+        //$query = new SelectQuery();
+        $this->select->tableName = $this->tableName;
+        $this->select->addField($this->field);
+        $this->select->filter = $this->filter;
+        $this->select->limit = 1;
 
 
         foreach ($this->orderList as $order) {
-            $query->addOrder($order->field, $order->sortOrder);
+            $this->select->addOrder($order->field, $order->sortOrder);
         }
 
-        $value = $this->connection->queryValue($query->getSqlParameter());
+        $value = $this->connection->queryValue($this->select->getSqlParameter());
 
         return $value;
 
@@ -89,12 +95,12 @@ abstract class AbstractDataValue extends AbstractDbBase
         $field = new MaxField();
         $field->aggregateField = $this->field;
 
-        $query = new SelectQuery();
-        $query->addField($field);
-        $query->tableName = $this->tableName;
-        $query->filter = $this->filter;
+        //$query = new SelectQuery();
+        $this->select->addField($field);
+        $this->select->tableName = $this->tableName;
+        $this->select->filter = $this->filter;
 
-        $value = $this->connection->queryValue($query->getSqlParameter());
+        $value = $this->connection->queryValue($this->select->getSqlParameter());
 
         return $value;
 

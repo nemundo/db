@@ -3,7 +3,7 @@
 namespace Nemundo\Db\Reader;
 
 
-use Nemundo\Core\Log\LogFile;
+use Nemundo\Core\Debug\Debug;
 use Nemundo\Core\Log\LogMessage;
 use Nemundo\Db\Filter\Filter;
 use Nemundo\Db\Row\DataRow;
@@ -50,8 +50,12 @@ abstract class AbstractDataReader extends AbstractSqlReader
     /**
      * @var SelectQuery
      */
-    private $select;
+    protected $select;
 
+    /**
+     * @var AbstractSqlJoin[]
+     */
+    private $joinList = [];
 
     public function __construct()
     {
@@ -71,7 +75,10 @@ abstract class AbstractDataReader extends AbstractSqlReader
 
     public function addJoin(AbstractSqlJoin $join)
     {
-        $this->select->addJoin($join);
+
+        $this->joinList[] = $join;
+
+        //$this->select->addJoin($join);
         return $this;
     }
 
@@ -118,8 +125,6 @@ abstract class AbstractDataReader extends AbstractSqlReader
         $this->prepareData();
         $this->sqlStatement = $this->select->getSqlParameter();
 
-        //return $this->
-
         return parent::getData();
 
     }
@@ -156,6 +161,11 @@ abstract class AbstractDataReader extends AbstractSqlReader
         $this->select->limit = $this->limit;
         $this->select->filter = $this->filter;
         $this->select->having = $this->having;
+
+        foreach ($this->joinList as $join) {
+            $this->select->addJoin($join);
+        }
+
 
     }
 
