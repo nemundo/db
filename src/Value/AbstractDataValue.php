@@ -53,7 +53,6 @@ abstract class AbstractDataValue extends AbstractDbBase
             return null;
         }
 
-        //$query = new SelectQuery();
         $this->select->tableName = $this->tableName;
         $this->select->addField($this->field);
         $this->select->filter = $this->filter;
@@ -95,7 +94,6 @@ abstract class AbstractDataValue extends AbstractDbBase
         $field = new MaxField();
         $field->aggregateField = $this->field;
 
-        //$query = new SelectQuery();
         $this->select->addField($field);
         $this->select->tableName = $this->tableName;
         $this->select->filter = $this->filter;
