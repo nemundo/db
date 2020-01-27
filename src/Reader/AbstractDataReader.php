@@ -3,7 +3,6 @@
 namespace Nemundo\Db\Reader;
 
 
-use Nemundo\Core\Debug\Debug;
 use Nemundo\Core\Log\LogMessage;
 use Nemundo\Db\Filter\Filter;
 use Nemundo\Db\Row\DataRow;
@@ -112,6 +111,13 @@ abstract class AbstractDataReader extends AbstractSqlReader
 
         $col = new ColumnField();
         $this->addOrder($col, SortOrder::RANDOM);
+        return $this;
+    }
+
+
+    public function setLimit($limit)
+    {
+        $this->limit = $limit;
         return $this;
     }
 
