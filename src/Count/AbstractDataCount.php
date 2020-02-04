@@ -48,7 +48,7 @@ abstract class AbstractDataCount extends AbstractDbBase
         $this->select->addField(new CountField());
         $this->select->tableName = $this->tableName;
         $this->select->filter = $this->filter;
-        $count = $this->connection->queryValue($this->select->getSqlParameter());
+        $count = (int)$this->connection->queryValue($this->select->getSqlParameter());
         return $count;
     }
 
