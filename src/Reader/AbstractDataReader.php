@@ -145,12 +145,7 @@ abstract class AbstractDataReader extends AbstractSqlReader
         $row = new DataRow($data);
 
         if (sizeof($data) == 0) {
-
             (new LogMessage())->writeError('GetRow: No returning Data. Table Name: ' . $this->tableName);
-
-            //$message = 'GetRow: No returning Data. Table Name: ' . $this->tableName;
-            //(new LogFile())->writeError($message);
-            //(new LogMessage())->writeError($message);
         }
 
         return $row;
