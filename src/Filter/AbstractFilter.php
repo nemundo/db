@@ -11,25 +11,22 @@ use Nemundo\Db\Sql\Parameter\SqlStatement;
 // DbFilter
 // AbstractFilter
 // loadFilter
-class Filter extends AbstractFilter  // AbstractBaseClass
+abstract class AbstractFilter extends AbstractBaseClass
 {
-
-    protected function loadFilter()
-    {
-        // TODO: Implement loadFilter() method.
-    }
-
 
     /**
      * @var SqlStatement
      */
-   /* private $sqlStatement;
+    private $sqlStatement;
 
     private $filterCount = 0;
+
+    abstract protected function loadFilter();
 
     public function __construct()
     {
         $this->sqlStatement = new SqlStatement();
+    $this->loadFilter();
     }
 
 
@@ -287,7 +284,7 @@ class Filter extends AbstractFilter  // AbstractBaseClass
         $this->parameter[$variableName] = $keyword;*/
 
 
- /*       return $this;
+        return $this;
     }
 
 
@@ -359,7 +356,7 @@ class Filter extends AbstractFilter  // AbstractBaseClass
 
         $this->filterCount++;
 
-    }*/
+    }
 
 
 }
