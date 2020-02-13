@@ -63,6 +63,8 @@ abstract class AbstractDataValue extends AbstractDbBase
     public function getValue()
     {
 
+
+
         if (!$this->checkProperty('tableName')) {
             return null;
         }
@@ -109,6 +111,7 @@ abstract class AbstractDataValue extends AbstractDbBase
     }
 
 
+    // field als parameter ???
     public function getMaxValue()
     {
 
