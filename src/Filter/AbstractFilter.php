@@ -7,10 +7,7 @@ use Nemundo\Core\Base\AbstractBaseClass;
 use Nemundo\Db\Sql\Field\AbstractField;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
 
-// DataFilter
-// DbFilter
-// AbstractFilter
-// loadFilter
+// AbstractDataFilter
 abstract class AbstractFilter extends AbstractBaseClass
 {
 
@@ -26,7 +23,7 @@ abstract class AbstractFilter extends AbstractBaseClass
     public function __construct()
     {
         $this->sqlStatement = new SqlStatement();
-    $this->loadFilter();
+        $this->loadFilter();
     }
 
 
@@ -34,7 +31,7 @@ abstract class AbstractFilter extends AbstractBaseClass
     {
 
         if ($filter->isNotEmpty()) {
-        $this->addFilter($filter, FilterLink::AND_LINK);
+            $this->addFilter($filter, FilterLink::AND_LINK);
         }
         return $this;
     }
@@ -307,7 +304,6 @@ abstract class AbstractFilter extends AbstractBaseClass
 
 
     }
-
 
 
     public function isNotEmpty()
