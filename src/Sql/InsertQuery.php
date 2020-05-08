@@ -4,7 +4,6 @@ namespace Nemundo\Db\Sql;
 
 
 use Nemundo\Core\Base\AbstractBaseClass;
-use Nemundo\Core\Directory\TextDirectory;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
 
 
@@ -34,17 +33,17 @@ class InsertQuery extends AbstractBaseClass
     /**
      * @var string[]
      */
-    private $fieldDirectory=[];
+    private $fieldDirectory = [];
 
     /**
      * @var string[]
      */
-    private $keyDirectory=[];
+    private $keyDirectory = [];
 
     /**
      * @var string[]
      */
-    private $valueDirectory=[];
+    private $valueDirectory = [];
 
     /**
      * @var int
@@ -54,10 +53,9 @@ class InsertQuery extends AbstractBaseClass
 
     public function __construct()
     {
+
         $this->sqlParameter = new SqlStatement();
-       /* $this->fieldDirectory = new TextDirectory();
-        $this->keyDirectory = new TextDirectory();
-        $this->valueDirectory = new TextDirectory();*/
+
     }
 
 
@@ -74,9 +72,7 @@ class InsertQuery extends AbstractBaseClass
     public function addField($fieldName)
     {
 
-        //$this->fieldDirectory->addValue('`' . $fieldName . '`');
-        $this->fieldDirectory[]='`' . $fieldName . '`';
-
+        $this->fieldDirectory[] = '`' . $fieldName . '`';
 
         return $this;
 
@@ -89,9 +85,7 @@ class InsertQuery extends AbstractBaseClass
         $keyName = 'key' . $this->keyCount;
 
         $this->sqlParameter->addParameter($keyName, $value, $fieldName);
-
-        //$this->keyDirectory->addValue(':' . $keyName);
-        $this->keyDirectory[]=':' . $keyName;
+        $this->keyDirectory[] = ':' . $keyName;
         $this->keyCount++;
 
         return $this;
@@ -101,12 +95,8 @@ class InsertQuery extends AbstractBaseClass
     public function closeValuePart()
     {
 
-        //$this->valueDirectory->addValue('(' . $this->keyDirectory->getTextWithSeperator() . ')');
-        //$this->keyDirectory = new TextDirectory();
-
-        $this->valueDirectory[]='(' . join( $this->keyDirectory,',') . ')';
-        $this->keyDirectory =[];
-
+        $this->valueDirectory[] = '(' . implode(',', $this->keyDirectory) . ')';
+        $this->keyDirectory = [];
 
         return $this;
 
@@ -122,9 +112,7 @@ class InsertQuery extends AbstractBaseClass
             $sql .= 'IGNORE ';
         }
 
-        //$sql .= 'INTO `' . $this->tableName . '` (' . $this->fieldDirectory->getTextWithSeperator() . ') VALUES ';
-        $sql .= 'INTO `' . $this->tableName . '` (' . join( $this->fieldDirectory, ',') . ') VALUES ';
-
+        $sql .= 'INTO `' . $this->tableName . '` (' . implode(',', $this->fieldDirectory) . ') VALUES ';
 
         return $sql;
 
@@ -134,7 +122,7 @@ class InsertQuery extends AbstractBaseClass
     public function getSqlParameter()
     {
 
-        $sql = $this->getFieldPart() . join( $this->valueDirectory, ',');
+        $sql = $this->getFieldPart() . implode(',', $this->valueDirectory);
 
         if ($this->updateOnDuplicate) {
 
