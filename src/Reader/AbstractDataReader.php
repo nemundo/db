@@ -76,8 +76,6 @@ abstract class AbstractDataReader extends AbstractSqlReader
     {
 
         $this->joinList[] = $join;
-
-        //$this->select->addJoin($join);
         return $this;
     }
 

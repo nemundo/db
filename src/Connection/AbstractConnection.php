@@ -49,9 +49,6 @@ abstract class AbstractConnection extends AbstractBaseClass
 
         if (!$this->connected) {
 
-            // auskommentieren, weshalb?
-            // Fehlermeldung bei Create Index etc.
-
             try {
                 $this->pdo = new \PDO($dataSourceName, $user, $password, $option);
                 $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -88,9 +85,6 @@ abstract class AbstractConnection extends AbstractBaseClass
             (new SqlLog())->logSqlParameter($sqlStatement);
         }
 
-
-        //$time = new Stopwatch();
-
         $data = [];
         $query = $this->prepareQuery($sqlStatement);
         try {
@@ -101,24 +95,6 @@ abstract class AbstractConnection extends AbstractBaseClass
             $errorMessage = 'Query Error: ' . $e->getMessage() . 'Sql: ' . $sqlStatement->sql;
             (new LogMessage())->writeError($errorMessage);
         }
-
-
-        // Auslagern LogSlowQuery
-        /*if (DbConfig::$slowQueryLog) {
-
-            $queryTime = $time->stop();
-
-            //(new Debug())->write('time:'.$queryTime);
-
-            if ($queryTime > DbConfig::$slowQueryLimit) {
-
-                //(new Debug())->write('slow');
-                $file = new TextFile();
-                $file->filename = LogConfig::$logPath . 'slow_query.log';
-                $file->addLine((new DateTime())->setNow()->getIsoDateFormat() . ';' . $queryTime . ';' . (new SqlLog())->getSql($sqlParameterList));
-            }
-
-        }*/
 
         return $data;
 
@@ -200,18 +176,11 @@ abstract class AbstractConnection extends AbstractBaseClass
                 $query = $this->pdo->prepare($sqlParameterList->sql);
                 foreach ($sqlParameterList->getParameterList() as $parameter) {
 
-                    //(new Debug())->write($parameter->value);
-
                     if (is_bool($parameter->value)) {
-
                         $query->bindValue(':' . $parameter->key, $parameter->value, \PDO::PARAM_BOOL);
-
                     } else {
                         $query->bindValue(':' . $parameter->key, $parameter->value);
                     }
-
-                    //$query->bindValue(':' . $parameter->key, $parameter->value);
-
 
                 }
 
@@ -221,46 +190,22 @@ abstract class AbstractConnection extends AbstractBaseClass
 
                 $showErrorMessage = true;
 
-// Ausblenden, falls, vorhandene Spalte erstellt werden soll
                 if (strpos($error->getMessage(), 'SQLSTATE[42S21]: Column already exists: 1060 Duplicate column name', 0) === 0) {
                     $showErrorMessage = false;
                 }
 
-// Ausblenden, falls, vorhandener Index erstellt werden soll
                 if (strpos($error->getMessage(), 'SQLSTATE[42000]: Syntax error or access violation: 1061 Duplicate key name', 0) === 0) {
                     $showErrorMessage = false;
                 }
 
-// Fehlermeldung anzeigen
                 if ($showErrorMessage) {
                     $errorMessage = 'Query Error: ' . $error->getMessage() . 'Sql: ' . $sqlParameterList->sql;
 
-                    //echo $errorMessage;
                     (new LogMessage())->writeError($errorMessage);
-                    //(new LogMessage())->writeError($sqlParameterList->get)
-
                     (new Debug())->write($sqlParameterList->getParameterList());
 
                 }
             }
-
-
-//$time = $stopwatch->stop();
-
-            /*if (DbConfig::$queryLog) {
-            (new SqlLog())->logSqlParameter($sqlParameter, $time);
-            }*/
-            /*
-                        if (DbConfig::$slowQueryLog) {
-
-                            /*
-                            if ($time > DbConfig::$slowQueryLimit) {
-                                $sqlLog = new SqlLog();
-                                $sqlLog->filename = 'slow_query_' . (new Date())->getIsoFormat() . '.log';
-                                $sqlLog->logSqlParameter($sqlParameterList, $time);
-                            }
-
-            }*/
 
             return $query;
 

@@ -5,6 +5,7 @@ namespace Nemundo\Db\Count;
 
 use Nemundo\Db\Base\AbstractDbBase;
 use Nemundo\Db\Filter\Filter;
+use Nemundo\Db\Sql\Field\AbstractField;
 use Nemundo\Db\Sql\Field\CountField;
 use Nemundo\Db\Sql\Join\AbstractSqlJoin;
 use Nemundo\Db\Sql\SelectQuery;
@@ -40,6 +41,23 @@ abstract class AbstractDataCount extends AbstractDbBase
     {
         $this->select->addJoin($join);
         return $this;
+    }
+
+
+    // in external GroupByTrait
+    protected function addGroupByFieldName($fieldName)
+    {
+        $this->select->addGroup($fieldName);
+        return $this;
+    }
+
+
+    public function addGroup(AbstractField $field)
+    {
+
+        $fieldName = $field->getConditionFieldName();
+        $this->addGroupByFieldName($fieldName);
+
     }
 
 
