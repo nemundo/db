@@ -4,6 +4,7 @@ namespace Nemundo\Db\Provider\MySql\Dump;
 
 
 use Nemundo\Core\File\Directory;
+use Nemundo\Core\Path\Path;
 use Nemundo\Core\Type\File\File;
 use Nemundo\Db\Base\AbstractDbBase;
 use Nemundo\Core\Local\LocalCommand;
@@ -25,9 +26,8 @@ class MySqlDump extends AbstractDbBase
             return;
         }
 
-        $directory = new Directory();
-        $directory->path = (new File($this->dumpFilename))->getPath();
-        $directory->createDirectory();
+        $path = new Path((new File($this->dumpFilename))->getPath());
+        $path->createPath();
 
         $command = 'mysqldump --lock-tables=false  --single-transaction -h ' . $this->connection->connectionParameter->host . ' --user ' . $this->connection->connectionParameter->user . ' --password=' . $this->connection->connectionParameter->password . ' ' . $this->connection->connectionParameter->database . ' > ' . $this->dumpFilename;
 
