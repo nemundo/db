@@ -175,7 +175,7 @@ abstract class AbstractFilter extends AbstractBaseClass
         return $this;
     }
 
-
+    // andSmallerOrEqual
     public function andEqualOrSmaller(AbstractField $type, $value)
     {
 
