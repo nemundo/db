@@ -3,7 +3,6 @@
 namespace Nemundo\Db\Provider\MySql\Dump;
 
 
-use Nemundo\Core\File\Directory;
 use Nemundo\Core\Path\Path;
 use Nemundo\Core\Type\File\File;
 use Nemundo\Db\Base\AbstractDbBase;
