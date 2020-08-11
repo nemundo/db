@@ -60,7 +60,51 @@ class MySqlField extends AbstractDbBase
     public function getSql()
     {
 
-        $sql = 'ALTER TABLE `' . $this->tableName . '` ADD `' . $this->fieldName . '` ' . $this->fieldType;
+        /*
+        $sql = 'ALTER TABLE `' . $this->tableName . '` '.$mode.' `' . $this->fieldName . '` ' . $this->fieldType;
+
+        if (!$this->allowNull) {
+            $sql .= ' NOT NULL';
+        }
+
+        if ($this->defaultValue !== null) {
+            $sql .= ' DEFAULT ' . $this->defaultValue;
+        }
+
+        $sql .= ';';*/
+
+        $sql=$this->internalSql('ADD');  //.$this->internalSql('MODIFY');
+
+        return $sql;
+
+    }
+
+
+    public function getModifySql()
+    {
+
+        /*
+        $sql = 'ALTER TABLE `' . $this->tableName . '` '.$mode.' `' . $this->fieldName . '` ' . $this->fieldType;
+
+        if (!$this->allowNull) {
+            $sql .= ' NOT NULL';
+        }
+
+        if ($this->defaultValue !== null) {
+            $sql .= ' DEFAULT ' . $this->defaultValue;
+        }
+
+        $sql .= ';';*/
+
+        $sql=$this->internalSql('MODIFY');
+        return $sql;
+
+    }
+
+
+    private function internalSql($mode) {
+
+        $sql = 'ALTER TABLE `' . $this->tableName . '` '.$mode.' `' . $this->fieldName . '` ' . $this->fieldType;
 
         if (!$this->allowNull) {
             $sql .= ' NOT NULL';
@@ -77,7 +121,6 @@ class MySqlField extends AbstractDbBase
     }
 
 
-    // createTableField
     public function createField()
     {
 
@@ -89,21 +132,16 @@ class MySqlField extends AbstractDbBase
     }
 
 
-    /*
+
     public function modifyField()
     {
 
-        // Modify Column
-        /*if ($this->changeFieldTypeIfExists) {
-            $sqlField = 'ALTER TABLE `' . $this->tableName . '` MODIFY `' . $field->fieldName . '` ' . $field->fieldType;
-            if ($field->defaultValue !== null) {
-                $sqlField .= ' DEFAULT ' . $field->defaultValue;
-            }
-            $sqlField .= ';';
-            $sql->add($sqlField);
-        }*/
+        $sqlParameter = new SqlStatement();
+        $sqlParameter->sql = $this->internalSql('MODIFY');
 
-    //}*/
+        $this->connection->execute($sqlParameter);
+
+    }
 
 
     public function dropField()

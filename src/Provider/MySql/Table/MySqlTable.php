@@ -40,7 +40,6 @@ class MySqlTable extends AbstractTable
 
     public function addTextField($fieldName, $length = 255, $allowNull = false)
     {
-        //(new Debug())->write($allowNull);
         $field = new MySqlField($this);
         $field->fieldName = $fieldName;
         $field->fieldType = 'varchar(' . $length . ')';
@@ -106,7 +105,7 @@ class MySqlTable extends AbstractTable
     {
         $field = new MySqlField($this);
         $field->fieldName = $fieldName;
-        $field->fieldType = 'double';  //float
+        $field->fieldType = 'double';
         $field->allowNull = $allowNull;
         return $this;
     }
@@ -160,26 +159,19 @@ class MySqlTable extends AbstractTable
 
         }
 
-
         $createTable = 'CREATE TABLE IF NOT EXISTS `' . $this->tableName . '` ';
         $createTable .= '(`' . $this->primaryIndex->fieldName . '` ' . $primaryIndexDataType . ', PRIMARY KEY (`' . $this->primaryIndex->fieldName . '`)) ';
         $createTable .= 'DEFAULT CHARSET=' . $this->charset . ' ENGINE=' . $this->engine . ';';
-
-
-//        $sql = new TextDirectory();
-//        $sql->addValue($createTable);
 
         $sql = [];
         $sql[] = $createTable;
 
         foreach ($this->fieldList as $field) {
-            //$sql->addValue($field->getSql());
             $sql[] = $field->getSql();
+            $sql[] = $field->getModifySql();
         }
 
-        // Index
         foreach ($this->indexList as $index) {
-            //$sql->addValue($index->getSql());
             $sql[] = $index->getSql();
         }
 
@@ -207,7 +199,7 @@ class MySqlTable extends AbstractTable
         }*/
 
 
-        //foreach ($this->getSql()->getData() as $sql) {
+
         foreach ($this->getSql() as $sql) {
             $sqlParameter = new SqlStatement();
             $sqlParameter->sql = $sql;

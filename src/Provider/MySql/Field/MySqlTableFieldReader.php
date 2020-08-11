@@ -2,6 +2,8 @@
 
 namespace Nemundo\Db\Provider\MySql\Field;
 
+use Nemundo\Core\Debug\Debug;
+use Nemundo\Core\Type\Number\YesNo;
 use Nemundo\Db\Base\AbstractDbDataSource;
 use Nemundo\Db\Reader\SqlReader;
 
@@ -40,6 +42,8 @@ class MySqlTableFieldReader extends AbstractDbDataSource
             $tableField->fieldName = $row->getValue('COLUMN_NAME');
             $tableField->fieldType = $row->getValue('DATA_TYPE');
             $tableField->fieldTypeLength = $row->getValue('CHARACTER_MAXIMUM_LENGTH');
+            $tableField->allowNull= (new YesNo())->fromText( $row->getValue('IS_NULLABLE'))->getValue();
+
             $this->addItem($tableField);
         }
 
