@@ -74,14 +74,14 @@ abstract class AbstractDataBulk extends AbstractData
     public function saveBulk()
     {
 
-        if ($this->bulkCount >0) {
+        if ($this->bulkCount > 0) {
 
-        $this->insertQuery->tableName = $this->tableName;
-        $this->insertQuery->ignoreIfExists = $this->ignoreIfExists;
-        $this->insertQuery->updateOnDuplicate = $this->updateOnDuplicate;
+            $this->insertQuery->tableName = $this->tableName;
+            $this->insertQuery->ignoreIfExists = $this->ignoreIfExists;
+            $this->insertQuery->updateOnDuplicate = $this->updateOnDuplicate;
 
-        $sqlParameter = $this->insertQuery->getSqlParameter();
-        $this->connection->execute($sqlParameter);
+            $sqlParameter = $this->insertQuery->getSqlParameter();
+            $this->connection->execute($sqlParameter);
 
         }
 
