@@ -13,13 +13,12 @@ class CountField extends AbstractField
     {
         parent::__construct($reader);
         $this->aliasFieldName = 'count_field';
-
     }
 
 
     public function getFieldName()
     {
-        $sql = 'COUNT(1) ' . $this->aliasFieldName;
+        $sql = 'COUNT(*) ' . $this->aliasFieldName;
         return $sql;
     }
 
