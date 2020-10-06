@@ -2,7 +2,6 @@
 
 namespace Nemundo\Db\Provider\MySql\Table;
 
-use Nemundo\Core\Debug\Debug;
 use Nemundo\Db\Index\AutoIncrementIdPrimaryIndex;
 use Nemundo\Db\Index\NumberIdPrimaryIndex;
 use Nemundo\Db\Index\TextIdPrimaryIndex;
@@ -199,7 +198,6 @@ class MySqlTable extends AbstractTable
         }*/
 
 
-
         foreach ($this->getSql() as $sql) {
             $sqlParameter = new SqlStatement();
             $sqlParameter->sql = $sql;
@@ -213,7 +211,6 @@ class MySqlTable extends AbstractTable
 
     public function existsTable()
     {
-
 
         $sql = 'SELECT COUNT(1) FROM information_schema.TABLES 
 WHERE (TABLE_SCHEMA = "' . $this->connection->connectionParameter->database . '") 
@@ -250,7 +247,6 @@ AND (TABLE_NAME = "' . $this->tableName . '")';
         $sqlParameter->sql = 'DROP TABLE IF EXISTS `' . $this->tableName . '`;';
         $this->connection->execute($sqlParameter);
     }
-
 
 }
 

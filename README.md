@@ -1,17 +1,18 @@
-# DB
+# Db
 
-Access Database 
+Database Access  for MySql/Sqlite 
 
 
-## Installation 
+### Installation 
 ```
 composer require nemundo/db
 ```
 
-## Submodule Installation 
+### Submodule Installation 
 ```
 git submodule add https://github.com/nemundo/db.git lib/db
 ```
+
 
 ```
 $lib = new Library($autoload);

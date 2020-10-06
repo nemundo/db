@@ -3,7 +3,7 @@
 namespace Nemundo\Db\Provider\SqLite\Table;
 
 
-use Nemundo\Core\File\Directory;
+use Nemundo\Core\Path\Path;
 use Nemundo\Core\Type\File\File;
 use Nemundo\Db\Index\AutoIncrementIdPrimaryIndex;
 use Nemundo\Db\Index\NumberIdPrimaryIndex;
@@ -30,7 +30,7 @@ class SqLiteTable extends AbstractTable
     }
 
 
-    public function addTextField($fieldName, $length = null, $allowNull = false)
+    public function addTextField($fieldName, $length = null, $allowNull = true)
     {
         $field = new SqLiteField($this);
         $field->fieldName = $fieldName;
@@ -93,14 +93,13 @@ class SqLiteTable extends AbstractTable
     public function createTable()
     {
 
-        // Create Path
-        $path = (new File($this->connection->filename))->getPath();
-        (new Directory($path))->createDirectory();
+        (new Path())
+            ->addPath((new File($this->connection->filename))->getPath())
+            ->createPath();
 
         if (!$this->checkProperty('tableName')) {
             return;
         }
-
 
         $primaryIndexDataType = null;
 
@@ -124,9 +123,7 @@ class SqLiteTable extends AbstractTable
 
         }
 
-
         $sqlParameter = new SqlStatement();
-        //$sqlParameter->sql = 'CREATE TABLE IF NOT EXISTS `' . $this->tableName . '` (`id` char(36), PRIMARY KEY (`id`));';
         $sqlParameter->sql = 'CREATE TABLE IF NOT EXISTS `' . $this->tableName . '` (`id` ' . $primaryIndexDataType . ');';
 
         $this->connection->execute($sqlParameter);
@@ -140,17 +137,11 @@ class SqLiteTable extends AbstractTable
 
         }
 
-
-        // Index
         foreach ($this->indexList as $index) {
-
             $sqlParameter = new SqlStatement();
             $sqlParameter->sql = $index->getSql();
-
             $this->connection->execute($sqlParameter);
-
         }
-
 
     }
 

@@ -2,14 +2,12 @@
 
 namespace Nemundo\Db\Provider\MySql\Data;
 
-
-use Nemundo\Core\File\Path;
 use Nemundo\Core\File\UniqueFilename;
+use Nemundo\Core\Path\Path;
 use Nemundo\Core\Type\Text\Text;
 use Nemundo\Db\Base\AbstractDbBase;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
 use Nemundo\Db\Sql\Query\FieldNameList;
-use Nemundo\Project\ProjectConfig;
 
 
 abstract class AbstractMySqlLoadData extends AbstractDbBase
@@ -47,10 +45,10 @@ abstract class AbstractMySqlLoadData extends AbstractDbBase
         parent::__construct();
         $this->fieldNameList = new FieldNameList();
 
-        $this->csvFilename = (new Path())
+        /*$this->csvFilename = (new Path())
             ->addPath(ProjectConfig::$tmpPath)
             ->addPath((new UniqueFilename())->getUniqueFilename('csv'))
-            ->getFilename();
+            ->getFilename();*/
 
     }
 

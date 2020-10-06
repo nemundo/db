@@ -4,8 +4,8 @@ namespace Nemundo\Db\Provider\MySql\Data;
 
 
 use Nemundo\Core\Csv\Writer\CsvWriter;
-use Nemundo\Core\File\Path;
 use Nemundo\Core\File\UniqueFilename;
+use Nemundo\Core\Path\Path;
 use Nemundo\Core\Type\File\File;
 
 
@@ -16,7 +16,6 @@ class MySqlLoadData extends AbstractMySqlLoadData
      * @var CsvWriter
      */
     private $csvWriter;
-
 
     public function __construct($tmpPath)
     {

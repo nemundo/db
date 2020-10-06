@@ -3,9 +3,9 @@
 require __DIR__.'/../config.php';
 
 $conn = new \Nemundo\Db\Provider\SqLite\Connection\SqLiteConnection();
-$conn->filename = 'c:/test/test.db';
+$conn->filename = 'c:/test/test/test.db';
 
-$tableName = 'test1';
+$tableName = 'test2';
 
 $table = new \Nemundo\Db\Provider\SqLite\Table\SqLiteTable($tableName);
 $table->connection = $conn;

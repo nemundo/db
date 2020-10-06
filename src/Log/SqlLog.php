@@ -4,9 +4,9 @@ namespace Nemundo\Db\Log;
 
 
 use Nemundo\Core\Base\AbstractBaseClass;
-use Nemundo\Core\File\Path;
-use Nemundo\Core\File\TextFile;
 use Nemundo\Core\Log\LogConfig;
+use Nemundo\Core\Path\Path;
+use Nemundo\Core\TextFile\Writer\TextFileWriter;
 use Nemundo\Core\Type\Text\Text;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
 
@@ -30,21 +30,11 @@ class SqlLog extends AbstractBaseClass
 
         return $sql->getValue();
 
-        //$this->logSql($sql->getValue());
-
     }
 
 
     public function logSqlParameter(SqlStatement $sqlParameter)
     {
-
-        /*
-        $sql = new Text($sqlParameter->sql);
-
-        foreach ($sqlParameter->getParameterList() as $parameter) {
-            $sql->replace(':' . $parameter->key, '"' . $parameter->value . '"');
-        }
-        $this->logSql($sql->getValue());*/
 
         $this->logSql($this->getSql($sqlParameter));
 
@@ -62,12 +52,10 @@ class SqlLog extends AbstractBaseClass
                 ->getFilename();
         }
 
-        $file = new TextFile();
-        $file->filename = SqlLog::$filename;
+        $file = new TextFileWriter(SqlLog::$filename);
         $file->appendToExistingFile = true;
         $file->addLine($sql);
-        $file->closeFile();
-        //$file->saveFile();
+        $file->saveFile();
 
     }
 
