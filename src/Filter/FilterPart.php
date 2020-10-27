@@ -51,6 +51,15 @@ class FilterPart extends AbstractBase
     public function getSqlParameter(SqlStatement $sqlParameterList)
     {
 
+        $value = $this->value;
+        if (is_bool($this->value)) {
+            if ($this->value) {
+                $value = 1;
+            } else {
+                $value = 0;
+            }
+        }
+
         $fieldName = $this->type->getConditionFieldName();
 
         $variableName = 'field_' . SqlConfig::$fieldCount;
@@ -62,7 +71,7 @@ class FilterPart extends AbstractBase
 
         if ($this->includeParameter) {
             $sqlParameterList->sql = $sqlParameterList->sql . $fieldName . ' ' . $this->compareType . ' :' . $variableName;
-            $sqlParameterList->addParameter($variableName, $this->value, $fieldName);
+            $sqlParameterList->addParameter($variableName, $value, $fieldName);
         } else {
             $sqlParameterList->sql = $sqlParameterList->sql . $fieldName . ' ' . $this->compareType;
         }

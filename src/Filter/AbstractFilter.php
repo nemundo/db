@@ -58,6 +58,7 @@ abstract class AbstractFilter extends AbstractBaseClass
         $this->addFilterPart($part);
 
         return $this;
+
     }
 
 
@@ -131,6 +132,7 @@ abstract class AbstractFilter extends AbstractBaseClass
         $this->addFilterPart($part);
 
         return $this;
+
     }
 
 
