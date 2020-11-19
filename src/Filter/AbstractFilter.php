@@ -275,6 +275,36 @@ abstract class AbstractFilter extends AbstractBaseClass
     }
 
 
+    public function orIsNull(AbstractField $type)
+    {
+
+        $part = new FilterPart();
+        $part->type = $type;
+        $part->includeParameter = false;
+        $part->compareType = FilterCompareType::IS_NULL;
+        $part->filterLink=FilterLink::OR_LINK;
+        $this->addFilterPart($part);
+
+        return $this;
+    }
+
+
+    public function orIsNotNull(AbstractField $type)
+    {
+
+        $part = new FilterPart();
+        $part->type = $type;
+        $part->includeParameter = false;
+        $part->compareType = FilterCompareType::IS_NOT_NULL;
+        $part->filterLink=FilterLink::OR_LINK;
+        $this->addFilterPart($part);
+
+        return $this;
+    }
+
+
+
+
     public function search($fieldName, $keyword)
     {
 
