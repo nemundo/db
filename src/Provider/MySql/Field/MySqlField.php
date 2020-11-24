@@ -60,21 +60,7 @@ class MySqlField extends AbstractDbBase
     public function getSql()
     {
 
-        /*
-        $sql = 'ALTER TABLE `' . $this->tableName . '` '.$mode.' `' . $this->fieldName . '` ' . $this->fieldType;
-
-        if (!$this->allowNull) {
-            $sql .= ' NOT NULL';
-        }
-
-        if ($this->defaultValue !== null) {
-            $sql .= ' DEFAULT ' . $this->defaultValue;
-        }
-
-        $sql .= ';';*/
-
-        $sql=$this->internalSql('ADD');  //.$this->internalSql('MODIFY');
-
+        $sql = $this->internalSql('ADD');
         return $sql;
 
     }
@@ -83,28 +69,16 @@ class MySqlField extends AbstractDbBase
     public function getModifySql()
     {
 
-        /*
-        $sql = 'ALTER TABLE `' . $this->tableName . '` '.$mode.' `' . $this->fieldName . '` ' . $this->fieldType;
-
-        if (!$this->allowNull) {
-            $sql .= ' NOT NULL';
-        }
-
-        if ($this->defaultValue !== null) {
-            $sql .= ' DEFAULT ' . $this->defaultValue;
-        }
-
-        $sql .= ';';*/
-
-        $sql=$this->internalSql('MODIFY');
+        $sql = $this->internalSql('MODIFY');
         return $sql;
 
     }
 
 
-    private function internalSql($mode) {
+    private function internalSql($mode)
+    {
 
-        $sql = 'ALTER TABLE `' . $this->tableName . '` '.$mode.' `' . $this->fieldName . '` ' . $this->fieldType;
+        $sql = 'ALTER TABLE `' . $this->tableName . '` ' . $mode . ' `' . $this->fieldName . '` ' . $this->fieldType;
 
         if (!$this->allowNull) {
             $sql .= ' NOT NULL';
@@ -132,7 +106,6 @@ class MySqlField extends AbstractDbBase
     }
 
 
-
     public function modifyField()
     {
 
@@ -154,6 +127,5 @@ class MySqlField extends AbstractDbBase
         $this->connection->execute($sqlParameter);
 
     }
-
 
 }

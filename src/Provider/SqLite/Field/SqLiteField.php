@@ -21,6 +21,11 @@ class SqLiteField extends AbstractBase
     public $fieldType = SqLiteFieldType::TEXT;
 
     /**
+     * @var string
+     */
+    public $defaultValue;
+
+    /**
      * @var bool
      */
     public $allowNull = true;
@@ -48,6 +53,10 @@ class SqLiteField extends AbstractBase
 
         if (!$this->allowNull) {
             $sql .= ' NOT NULL';
+        }
+
+        if ($this->defaultValue!==null) {
+            $sql .= ' DEFAULT '.$this->defaultValue;
         }
 
         $sql .= ';';

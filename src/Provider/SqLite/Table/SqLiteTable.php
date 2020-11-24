@@ -32,10 +32,17 @@ class SqLiteTable extends AbstractTable
 
     public function addTextField($fieldName, $length = null, $allowNull = true)
     {
-        $field = new SqLiteField($this);
-        $field->fieldName = $fieldName;
-        $field->fieldType = SqLiteFieldType::TEXT;
-        $field->allowNull = $allowNull;
+
+        if (!$this->existsField($fieldName)) {
+            $field = new SqLiteField($this);
+            $field->fieldName = $fieldName;
+            $field->fieldType = SqLiteFieldType::TEXT;
+            $field->allowNull = $allowNull;
+            if (!$allowNull) {
+                $field->defaultValue = '""';
+            }
+        }
+
         return $this;
     }
 
@@ -48,20 +55,30 @@ class SqLiteTable extends AbstractTable
 
     public function addNumberField($fieldName, $allowNull = false)
     {
-        $field = new SqLiteField($this);
-        $field->fieldName = $fieldName;
-        $field->fieldType = SqLiteFieldType::INTEGER;
-        $field->allowNull = $allowNull;
+        if (!$this->existsField($fieldName)) {
+            $field = new SqLiteField($this);
+            $field->fieldName = $fieldName;
+            $field->fieldType = SqLiteFieldType::INTEGER;
+            $field->allowNull = $allowNull;
+            if (!$allowNull) {
+                $field->defaultValue = '0';
+            }
+        }
         return $this;
     }
 
 
     public function addDecimalNumberField($fieldName, $allowNull = false)
     {
-        $field = new SqLiteField($this);
-        $field->fieldName = $fieldName;
-        $field->fieldType = SqLiteFieldType::REAL;
-        $field->allowNull = $allowNull;
+        if (!$this->existsField($fieldName)) {
+            $field = new SqLiteField($this);
+            $field->fieldName = $fieldName;
+            $field->fieldType = SqLiteFieldType::REAL;
+            $field->allowNull = $allowNull;
+            if (!$allowNull) {
+                $field->defaultValue = '0';
+            }
+        }
         return $this;
     }
 
@@ -75,18 +92,36 @@ class SqLiteTable extends AbstractTable
 
     public function addDateField($fieldName, $allowNull = false)
     {
-        // TODO: Implement addDateField() method.
+
     }
 
 
     public function addDateTimeField($fieldName, $allowNull = false)
     {
-        // TODO: Implement addDateTimeField() method.
+
     }
 
     public function addTimeField($fieldName, $allowNull = false)
     {
-        // TODO: Implement addTimeField() method.
+
+    }
+
+
+    public function existsField($fieldName)
+    {
+
+        $value = false;
+
+        $sql = new SqlStatement();
+        $sql->sql = 'SELECT COUNT(*) AS count FROM pragma_table_info("' . $this->tableName . '") WHERE name="' . $fieldName . '"';
+        $data = $this->connection->query($sql);
+
+        if ($data[0]['count'] == 1) {
+            $value = true;
+        }
+
+        return $value;
+
     }
 
 
@@ -129,12 +164,9 @@ class SqLiteTable extends AbstractTable
         $this->connection->execute($sqlParameter);
 
         foreach ($this->fieldList as $field) {
-
             $sqlParameter = new SqlStatement();
             $sqlParameter->sql = $field->getSql();
-
             $this->connection->execute($sqlParameter);
-
         }
 
         foreach ($this->indexList as $index) {
@@ -149,8 +181,6 @@ class SqLiteTable extends AbstractTable
     public function renameTable($newTableName)
     {
 
-        // ALTER TABLE foo RENAME TO bar
-
         $sqlParameter = new SqlStatement();
         $sqlParameter->sql = 'ALTER TABLE `' . $this->tableName . '` RENAME TO `' . $newTableName . '`;';
         $this->connection->execute($sqlParameter);
@@ -159,15 +189,13 @@ class SqLiteTable extends AbstractTable
 
     public function dropTable()
     {
-        // TODO: Implement dropTable() method.
+
     }
 
 
     public function renameTableField($fieldName, $newFieldName)
     {
 
-
     }
-
 
 }
