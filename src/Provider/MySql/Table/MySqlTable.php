@@ -96,6 +96,7 @@ class MySqlTable extends AbstractTable
         $field = new MySqlField($this);
         $field->fieldName = $fieldName;
         $field->fieldType = 'int';
+        //$field->fieldType = 'bigint';
         $field->allowNull = $allowNull;
         return $this;
     }

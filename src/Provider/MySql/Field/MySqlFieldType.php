@@ -18,6 +18,8 @@ class MySqlFieldType
     const BOOL = 'bool';
 
     const INT = 'int';
+    //const INT = 'bigint';
+
 
     const FLOAT = 'float';
 

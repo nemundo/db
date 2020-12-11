@@ -2,9 +2,7 @@
 
 require __DIR__.'/../config.php';
 
-
-$tableName = 'absenzmeldung_grund';
-
+$tableName = '';
 
 $reader = new \Nemundo\Db\Provider\MySql\Field\MySqlTableFieldReader();
 $reader->tableName = $tableName;
