@@ -7,6 +7,8 @@ use Nemundo\Db\Index\NumberIdPrimaryIndex;
 use Nemundo\Db\Index\TextIdPrimaryIndex;
 use Nemundo\Db\Index\UniqueIdPrimaryIndex;
 use Nemundo\Db\Provider\MySql\Field\MySqlField;
+use Nemundo\Db\Provider\MySql\Field\MySqlTableFieldReader;
+use Nemundo\Db\Provider\MySql\Index\MySqlIndexReader;
 use Nemundo\Db\Reader\SqlReader;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
 use Nemundo\Db\Table\AbstractTable;
@@ -167,12 +169,24 @@ class MySqlTable extends AbstractTable
         $sql[] = $createTable;
 
         foreach ($this->fieldList as $field) {
-            $sql[] = $field->getSql();
-            $sql[] = $field->getModifySql();
+
+            $fieldReader = new MySqlTableFieldReader();
+            $fieldReader->tableName = $this->tableName;
+            if (!$fieldReader->existsField($field->fieldName)) {
+                $sql[] = $field->getSql();
+                //$sql[] = $field->getModifySql();
+            }
+
         }
 
         foreach ($this->indexList as $index) {
-            $sql[] = $index->getSql();
+
+            $indexReader = new MySqlIndexReader();
+            $indexReader->tableName = $this->tableName;
+            if (!$indexReader->existsIndex($index->indexName)) {
+                $sql[] = $index->getSql();
+            }
+
         }
 
         return $sql;

@@ -25,13 +25,16 @@ abstract class AbstractIndex extends AbstractDbBase
     protected $fieldList = [];
 
 
-    function __construct(AbstractTable $table)
+    function __construct(AbstractTable $table = null)
     {
         parent::__construct();
 
         $this->loadIndex();
-        $this->tableName = $table->tableName;
-        $table->addIndex($this);
+
+        if ($table !== null) {
+            $this->tableName = $table->tableName;
+            $table->addIndex($this);
+        }
 
     }
 

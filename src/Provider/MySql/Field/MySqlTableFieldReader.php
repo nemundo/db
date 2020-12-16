@@ -46,4 +46,19 @@ class MySqlTableFieldReader extends AbstractDbDataSource
 
     }
 
+
+    public function existsField($fieldName)
+    {
+
+        $exists = false;
+        foreach ($this->getData() as $mySqlField) {
+            if ($mySqlField->fieldName == $fieldName) {
+                $exists = true;
+            }
+        }
+
+        return $exists;
+
+    }
+
 }

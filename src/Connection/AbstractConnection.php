@@ -190,13 +190,13 @@ abstract class AbstractConnection extends AbstractBaseClass
 
                 $showErrorMessage = true;
 
-                if (strpos($error->getMessage(), 'SQLSTATE[42S21]: Column already exists: 1060 Duplicate column name', 0) === 0) {
+                /*if (strpos($error->getMessage(), 'SQLSTATE[42S21]: Column already exists: 1060 Duplicate column name', 0) === 0) {
                     $showErrorMessage = false;
                 }
 
                 if (strpos($error->getMessage(), 'SQLSTATE[42000]: Syntax error or access violation: 1061 Duplicate key name', 0) === 0) {
                     $showErrorMessage = false;
-                }
+                }*/
 
                 if ($showErrorMessage) {
                     $errorMessage = 'Query Error: ' . $error->getMessage() . 'Sql: ' . $sqlParameterList->sql;

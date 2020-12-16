@@ -7,9 +7,9 @@ class MySqlFieldType
 
     const VARCHAR_36 = 'varchar(36)';
 
-    const VARCHAR_20 = 'varchar(20)';
+    //const VARCHAR_20 = 'varchar(20)';
 
-    const VARCHAR_100 = 'varchar(100)';
+    //const VARCHAR_100 = 'varchar(100)';
 
     const VARCHAR_255 = 'varchar(255)';
 

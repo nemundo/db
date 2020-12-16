@@ -20,16 +20,10 @@ abstract class AbstractMySqlIndex extends AbstractIndex
 
         $this->checkProperty('tableName');
 
-        // Index Name
-
-        //$indexName = implode('_', $this->fieldList);
-
         if ($this->indexName == null) {
             $this->indexName = implode('_', $this->fieldList);
         }
 
-
-        // Field Name
         $indexFieldName = '';
         foreach ($this->fieldList as $fieldName) {
             if ($indexFieldName !== '') {
@@ -37,7 +31,6 @@ abstract class AbstractMySqlIndex extends AbstractIndex
             }
             $indexFieldName .= '`' . $fieldName . '`';
         }
-
 
         $indexType = $this->indexType;
         if ($this->indexType == MySqlIndexType::INDEX) {
