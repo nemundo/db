@@ -2,14 +2,10 @@
 
 namespace Nemundo\Db\Provider\MySql\Field;
 
-
 use Nemundo\Db\Base\AbstractDbBase;
 use Nemundo\Db\Provider\MySql\Table\MySqlTable;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
 
-
-// MySqlColumn
-// MySqlTableColumn
 class MySqlField extends AbstractDbBase
 {
 
