@@ -4,6 +4,7 @@ namespace Nemundo\Db\Provider\MySql\Index;
 
 
 use Nemundo\Db\Base\AbstractDbDataSource;
+use Nemundo\Db\Provider\MySql\Table\MySqlTable;
 use Nemundo\Db\Reader\SqlReader;
 
 class MySqlIndexReader extends AbstractDbDataSource
@@ -29,24 +30,30 @@ class MySqlIndexReader extends AbstractDbDataSource
 
         $this->checkConnection();
 
-        $sql = 'SHOW INDEX FROM `' . $this->tableName . '`;';
+        $tableReader = new MySqlTable();
+        $tableReader->tableName = $this->tableName;
+        if ($tableReader->existsTable()) {
 
-        $reader = new SqlReader();
-        $reader->connection = $this->connection;
-        $reader->sqlStatement->sql = $sql;
+            $sql = 'SHOW INDEX FROM `' . $this->tableName . '`;';
 
-        foreach ($reader->getData() as $row) {
+            $reader = new SqlReader();
+            $reader->connection = $this->connection;
+            $reader->sqlStatement->sql = $sql;
 
-            $index = new MySqlUniqueIndex();
-            $index->indexName = $row->getValue('key_name');
+            foreach ($reader->getData() as $row) {
+
+                $index = new MySqlUniqueIndex();
+                $index->indexName = $row->getValue('key_name');
 
 
-            /*$tableField = new MySqlField();
-            $tableField->fieldName = $row->getValue('COLUMN_NAME');
-            $tableField->fieldType = $row->getValue('DATA_TYPE');
-            $tableField->fieldTypeLength = $row->getValue('CHARACTER_MAXIMUM_LENGTH');
-            $this->list[] = $tableField;*/
-            $this->addItem($index);
+                /*$tableField = new MySqlField();
+                $tableField->fieldName = $row->getValue('COLUMN_NAME');
+                $tableField->fieldType = $row->getValue('DATA_TYPE');
+                $tableField->fieldTypeLength = $row->getValue('CHARACTER_MAXIMUM_LENGTH');
+                $this->list[] = $tableField;*/
+                $this->addItem($index);
+
+            }
 
         }
 
