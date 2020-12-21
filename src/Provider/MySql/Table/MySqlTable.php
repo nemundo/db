@@ -174,8 +174,8 @@ class MySqlTable extends AbstractTable
             $fieldReader->tableName = $this->tableName;
             if (!$fieldReader->existsField($field->fieldName)) {
                 $sql[] = $field->getSql();
-                //$sql[] = $field->getModifySql();
             }
+            $sql[] = $field->getModifySql();
 
         }
 
