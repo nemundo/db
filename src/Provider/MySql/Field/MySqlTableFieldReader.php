@@ -36,6 +36,7 @@ class MySqlTableFieldReader extends AbstractDbDataSource
         $reader->sqlStatement->sql = $sql;
         foreach ($reader->getData() as $row) {
             $tableField = new MySqlField();
+            $tableField->tableName=$this->tableName;
             $tableField->fieldName = $row->getValue('COLUMN_NAME');
             $tableField->fieldType = $row->getValue('DATA_TYPE');
             $tableField->fieldTypeLength = $row->getValue('CHARACTER_MAXIMUM_LENGTH');
