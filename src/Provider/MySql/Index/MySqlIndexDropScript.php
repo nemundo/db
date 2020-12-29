@@ -24,23 +24,28 @@ class MySqlIndexDropScript extends AbstractDbBase
     public function dropIndex()
     {
 
-        $keyNameList = [];
+        //$keyNameList = [];
 
         $indexReader = new MySqlIndexReader();
         $indexReader->tableName = $this->tableName;
         foreach ($indexReader->getData() as $indexRow) {
             if ($indexRow->indexName !== 'PRIMARY') {
-                $keyNameList[] = $indexRow->indexName;
+                //$keyNameList[] = $indexRow->indexName;
+
+                $indexRow->dropIndex();
+
             }
         }
 
+
+        /*
         $keyNameList = array_unique($keyNameList);
 
         foreach ($keyNameList as $keyName) {
             $sqlParameter = new SqlStatement();
-            $sqlParameter->sql = 'ALTER TABLE `' . $this->tableName . '` DROP INDEX ' . $keyName . ';';
+            $sqlParameter->sql = 'ALTER TABLE `' . $this->tableName . '` DROP INDEX `' . $keyName . '`;';
             $this->connection->execute($sqlParameter);
-        }
+        }*/
 
     }
 

@@ -56,4 +56,10 @@ abstract class AbstractIndex extends AbstractDbBase
         return $this;
     }
 
+
+    public function dropIndex() {
+
+    }
+
+
 }
