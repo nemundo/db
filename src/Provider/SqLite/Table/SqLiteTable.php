@@ -99,6 +99,23 @@ class SqLiteTable extends AbstractTable
     public function addDateTimeField($fieldName, $allowNull = false)
     {
 
+        $this->addTextField($fieldName, $allowNull);
+
+        /*
+        if (!$this->existsField($fieldName)) {
+            $field = new SqLiteField($this);
+            $field->fieldName = $fieldName;
+            $field->fieldType = SqLiteFieldType::TEXT;
+            $field->allowNull = $allowNull;
+            if (!$allowNull) {
+                $field->defaultValue = '""';
+            }
+        }*/
+
+        return $this;
+
+
+
     }
 
     public function addTimeField($fieldName, $allowNull = false)
@@ -170,6 +187,10 @@ class SqLiteTable extends AbstractTable
         }
 
         foreach ($this->indexList as $index) {
+
+            // Sqlite needs a unique index name
+            $index->indexName = 'index_' . $this->tableName . '_' . $index->indexName;
+
             $sqlParameter = new SqlStatement();
             $sqlParameter->sql = $index->getSql();
             $this->connection->execute($sqlParameter);
@@ -189,6 +210,10 @@ class SqLiteTable extends AbstractTable
 
     public function dropTable()
     {
+
+        $sqlParameter = new SqlStatement();
+        $sqlParameter->sql = 'DROP TABLE `' . $this->tableName . '`;';
+        $this->connection->execute($sqlParameter);
 
     }
 

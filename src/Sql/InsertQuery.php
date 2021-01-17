@@ -110,6 +110,9 @@ class InsertQuery extends AbstractBaseClass
 
         if ($this->ignoreIfExists) {
             $sql .= 'IGNORE ';
+
+            // Sqlite
+            //$sql .= 'OR IGNORE ';
         }
 
         $sql .= 'INTO `' . $this->tableName . '` (' . implode(',', $this->fieldDirectory) . ') VALUES ';

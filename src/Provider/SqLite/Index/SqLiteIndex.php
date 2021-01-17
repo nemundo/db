@@ -6,7 +6,7 @@ namespace Nemundo\Db\Provider\SqLite\Index;
 use Nemundo\Db\Index\AbstractIndex;
 use Nemundo\Db\Provider\MySql\Index\MySqlIndexType;
 
-class SqLiteUniqueIndex extends AbstractIndex
+class SqLiteIndex extends AbstractIndex
 {
 
     protected function loadIndex()
@@ -40,7 +40,7 @@ class SqLiteUniqueIndex extends AbstractIndex
             $indexType = '';
         }*/
 
-        $sql = 'CREATE UNIQUE INDEX IF NOT EXISTS `' . $this->indexName . '` ON `' . $this->tableName . '` (' . $indexFieldName . ');';
+        $sql = 'CREATE INDEX IF NOT EXISTS `' . $this->indexName . '` ON `' . $this->tableName . '` (' . $indexFieldName . ');';
 
         return $sql;
 
