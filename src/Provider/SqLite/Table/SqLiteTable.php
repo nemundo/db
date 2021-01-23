@@ -3,6 +3,7 @@
 namespace Nemundo\Db\Provider\SqLite\Table;
 
 
+use Nemundo\Core\Debug\Debug;
 use Nemundo\Core\Path\Path;
 use Nemundo\Core\Type\File\File;
 use Nemundo\Db\Index\AutoIncrementIdPrimaryIndex;
@@ -131,6 +132,9 @@ class SqLiteTable extends AbstractTable
 
         $sql = new SqlStatement();
         $sql->sql = 'SELECT COUNT(*) AS count FROM pragma_table_info("' . $this->tableName . '") WHERE name="' . $fieldName . '"';
+
+        (new Debug())->write($sql->sql);
+
         $data = $this->connection->query($sql);
 
         if ($data[0]['count'] == 1) {
