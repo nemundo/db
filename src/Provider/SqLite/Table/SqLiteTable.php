@@ -3,7 +3,6 @@
 namespace Nemundo\Db\Provider\SqLite\Table;
 
 
-use Nemundo\Core\Debug\Debug;
 use Nemundo\Core\Path\Path;
 use Nemundo\Core\Type\File\File;
 use Nemundo\Db\Index\AutoIncrementIdPrimaryIndex;
@@ -93,35 +92,22 @@ class SqLiteTable extends AbstractTable
 
     public function addDateField($fieldName, $allowNull = false)
     {
-
+        $this->addTextField($fieldName, $allowNull);
+        return $this;
     }
 
 
     public function addDateTimeField($fieldName, $allowNull = false)
     {
-
         $this->addTextField($fieldName, $allowNull);
-
-        /*
-        if (!$this->existsField($fieldName)) {
-            $field = new SqLiteField($this);
-            $field->fieldName = $fieldName;
-            $field->fieldType = SqLiteFieldType::TEXT;
-            $field->allowNull = $allowNull;
-            if (!$allowNull) {
-                $field->defaultValue = '""';
-            }
-        }*/
-
         return $this;
-
-
-
     }
+
 
     public function addTimeField($fieldName, $allowNull = false)
     {
-
+        $this->addTextField($fieldName, $allowNull);
+        return $this;
     }
 
 
@@ -133,7 +119,7 @@ class SqLiteTable extends AbstractTable
         $sql = new SqlStatement();
         $sql->sql = 'SELECT COUNT(*) AS count FROM pragma_table_info("' . $this->tableName . '") WHERE name="' . $fieldName . '"';
 
-        (new Debug())->write($sql->sql);
+        //(new Debug())->write($sql->sql);
 
         $data = $this->connection->query($sql);
 

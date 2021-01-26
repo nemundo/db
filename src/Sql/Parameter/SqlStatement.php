@@ -28,7 +28,6 @@ class SqlStatement extends AbstractBase
         $parameter->key = $key;
         $parameter->value = $value;
 
-
         $this->parameterList[] = $parameter;
 
     }
@@ -45,7 +44,9 @@ class SqlStatement extends AbstractBase
 
     public function getParameterList()
     {
+
         return $this->parameterList;
+
     }
 
 }
