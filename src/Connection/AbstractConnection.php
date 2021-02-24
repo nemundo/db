@@ -146,7 +146,8 @@ abstract class AbstractConnection extends AbstractBaseClass
             (new LogMessage())->writeError($errorMessage);
         }
 
-        $value = '';
+        //$value = '';
+        $value = null;
         if (isset($data[0])) {
             $value = $data[0];
         }
