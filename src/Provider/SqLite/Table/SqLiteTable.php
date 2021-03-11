@@ -119,8 +119,6 @@ class SqLiteTable extends AbstractTable
         $sql = new SqlStatement();
         $sql->sql = 'SELECT COUNT(*) AS count FROM pragma_table_info("' . $this->tableName . '") WHERE name="' . $fieldName . '"';
 
-        //(new Debug())->write($sql->sql);
-
         $data = $this->connection->query($sql);
 
         if ($data[0]['count'] == 1) {
