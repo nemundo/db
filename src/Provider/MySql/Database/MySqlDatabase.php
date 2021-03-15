@@ -81,6 +81,9 @@ class MySqlDatabase extends AbstractDbBase
         $sqlParamter->sql = 'DROP DATABASE IF EXISTS `' . $this->databaseName . '`;';
 
         $this->connection->execute($sqlParamter);
+
+        return $this;
+
     }
 
 
@@ -92,6 +95,8 @@ class MySqlDatabase extends AbstractDbBase
         foreach ($reader->getData() as $table) {
             $table->dropTable();
         }
+
+        return $this;
 
     }
 
