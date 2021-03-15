@@ -42,6 +42,10 @@ class MySqlTable extends AbstractTable
 
     public function addTextField($fieldName, $length = 255, $allowNull = false)
     {
+
+        // Tmp
+        $length = 191;
+
         $field = new MySqlField($this);
         $field->fieldName = $fieldName;
         $field->fieldType = 'varchar(' . $length . ')';
