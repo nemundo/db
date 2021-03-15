@@ -19,7 +19,8 @@ class MySqlTable extends AbstractTable
     /**
      * @var string
      */
-    public $charset = 'utf8';
+    public $charset = 'utf8mb4';
+    //public $charset = 'utf8';
 
     /**
      * @var MySqlEngine

@@ -2,6 +2,7 @@
 namespace Nemundo\Db\Provider\MySql\Table;
 
 
+use Nemundo\Core\Debug\Debug;
 use Nemundo\Db\Base\AbstractDbDataSource;
 use Nemundo\Db\Reader\SqlReader;
 
@@ -48,6 +49,9 @@ class MySqlTableReader extends AbstractDbDataSource
         $reader->sqlStatement->sql = $sql;
 
         foreach ($reader->getData() as $dbName) {
+
+            //(new Debug())->write($dbName);
+
             $mysqlTable = new MySqlTable();
             $mysqlTable->connection = $this->connection;
             $mysqlTable->tableName = $dbName->getValueByNumber(0);
