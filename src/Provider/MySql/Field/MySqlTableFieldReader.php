@@ -36,11 +36,13 @@ class MySqlTableFieldReader extends AbstractDbDataSource
         $reader->sqlStatement->sql = $sql;
         foreach ($reader->getData() as $row) {
             $tableField = new MySqlField();
-            $tableField->tableName=$this->tableName;
+            $tableField->tableName = $this->tableName;
             $tableField->fieldName = $row->getValue('COLUMN_NAME');
             $tableField->fieldType = $row->getValue('DATA_TYPE');
             $tableField->fieldTypeLength = $row->getValue('CHARACTER_MAXIMUM_LENGTH');
             $tableField->allowNull = (new YesNo())->fromText($row->getValue('IS_NULLABLE'))->getValue();
+            $tableField->collation = $row->getValue('COLLATION_NAME');
+            $tableField->character = $row->getValue('CHARACTER_SET_NAME');
 
             $this->addItem($tableField);
         }

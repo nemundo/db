@@ -39,6 +39,9 @@ class MySqlField extends AbstractDbBase
      */
     public $allowNull = false;
 
+    public $collation;
+
+    public $character;
 
     public function __construct(MySqlTable $mySqlTable = null)
     {
