@@ -25,7 +25,8 @@ class MySqlConnection extends AbstractConnection
     {
 
         $property = [];
-        $property[\PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8';
+        //$property[\PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8';
+        $property[\PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8mb4';
         $property[\PDO::MYSQL_ATTR_LOCAL_INFILE] = true;
 
         $this->createPdoConnection('mysql:host=' . $this->connectionParameter->host . ';port=' . $this->connectionParameter->port . ';dbname=' . $this->connectionParameter->database . ';charset=utf8', $this->connectionParameter->user, $this->connectionParameter->password, $property);
