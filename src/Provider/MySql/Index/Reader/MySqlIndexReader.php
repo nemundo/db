@@ -1,10 +1,9 @@
 <?php
 
-namespace Nemundo\Db\Provider\MySql\Index;
+namespace Nemundo\Db\Provider\MySql\Index\Reader;
 
 
 use Nemundo\Db\Base\AbstractDbDataSource;
-use Nemundo\Db\Index\UniqueIdPrimaryIndex;
 use Nemundo\Db\Provider\MySql\Table\MySqlTable;
 use Nemundo\Db\Reader\SqlReader;
 
@@ -43,11 +42,14 @@ class MySqlIndexReader extends AbstractDbDataSource
 
             foreach ($reader->getData() as $row) {
 
-                $index = new MySqlUniqueIndex();
+                $index = new MySqlIndexItem();  // new MySqlUniqueIndex();
                 $index->tableName = $this->tableName;
                 $index->indexName = $row->getValue('key_name');
-                $index->columnName  = $row->getValue('Column_name');
+                $index->columnName = $row->getValue('Column_name');
+                $index->indexType = $row->getValue('Index_type');
 
+
+                // $row->addText($index->getValue('Index_type'));
 
                 /*$tableField = new MySqlField();
                 $tableField->fieldName = $row->getValue('COLUMN_NAME');
@@ -64,7 +66,7 @@ class MySqlIndexReader extends AbstractDbDataSource
 
 
     /**
-     * @return AbstractMySqlIndex[]|MySqlUniqueIndex[]
+     * @return MySqlIndexItem[]
      */
     public function getData()
     {

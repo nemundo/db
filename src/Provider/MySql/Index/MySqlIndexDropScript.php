@@ -4,6 +4,7 @@ namespace Nemundo\Db\Provider\MySql\Index;
 
 
 use Nemundo\Db\Base\AbstractDbBase;
+use Nemundo\Db\Provider\MySql\Index\Reader\MySqlIndexReader;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
 
 class MySqlIndexDropScript extends AbstractDbBase
@@ -25,6 +26,7 @@ class MySqlIndexDropScript extends AbstractDbBase
     {
 
         //$keyNameList = [];
+
 
         $indexReader = new MySqlIndexReader();
         $indexReader->tableName = $this->tableName;

@@ -65,6 +65,8 @@ class MySqlDatabase extends AbstractDbBase
         $connTmp->connectionParameter->password = $this->connection->connectionParameter->password;
         $connTmp->connectionParameter->port = $this->connection->connectionParameter->port;
 
+        //create database my_db character set UTF8MB4;
+
         $sqlParamter = new SqlStatement();
         $sqlParamter->sql = 'CREATE DATABASE IF NOT EXISTS `' . $this->databaseName . '`;';
 
