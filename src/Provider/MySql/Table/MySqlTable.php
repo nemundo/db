@@ -25,7 +25,7 @@ class MySqlTable extends AbstractTable
     /**
      * @var MySqlEngine
      */
-    public $engine = MySqlEngine::MY_ISAM;
+    public $engine = MySqlEngine::INNODB;  // MySqlEngine::MY_ISAM;
 
     /**
      * @var MySqlField[]
