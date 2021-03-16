@@ -44,9 +44,9 @@ class MySqlTable extends AbstractTable
     {
 
         // Tmp
-        if ($length>150) {
+        /*if ($length>150) {
         $length = 150;
-        }
+        }*/
 
 
         $field = new MySqlField($this);

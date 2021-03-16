@@ -77,6 +77,11 @@ class MySqlDatabase extends AbstractDbBase
 
     public function dropDatabase()
     {
+
+        if ($this->databaseName == null) {
+            $this->databaseName = $this->connection->connectionParameter->database;
+        }
+
         $sqlParamter = new SqlStatement();
         $sqlParamter->sql = 'DROP DATABASE IF EXISTS `' . $this->databaseName . '`;';
 
