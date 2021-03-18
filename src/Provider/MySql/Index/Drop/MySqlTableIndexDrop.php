@@ -1,13 +1,14 @@
 <?php
 
-namespace Nemundo\Db\Provider\MySql\Index;
+namespace Nemundo\Db\Provider\MySql\Index\Drop;
 
 
+use Nemundo\Core\Debug\Debug;
 use Nemundo\Db\Base\AbstractDbBase;
 use Nemundo\Db\Provider\MySql\Index\Reader\MySqlIndexReader;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
 
-class MySqlIndexDropScript extends AbstractDbBase
+class MySqlTableIndexDrop extends AbstractDbBase
 {
 
     /**
@@ -22,19 +23,22 @@ class MySqlIndexDropScript extends AbstractDbBase
     }
 
 
-    public function dropIndex()
+    public function dropAllIndex()
     {
 
-        //$keyNameList = [];
-
-
         $indexReader = new MySqlIndexReader();
+        $indexReader->connection=$this->connection;
         $indexReader->tableName = $this->tableName;
         foreach ($indexReader->getData() as $indexRow) {
             if ($indexRow->indexName !== 'PRIMARY') {
                 //$keyNameList[] = $indexRow->indexName;
 
-                $indexRow->dropIndex();
+                //$indexRow->dropIndex();
+
+                //(new Debug())->write($indexRow->indexName);
+
+                $this->dropIndex($indexRow->indexName);
+
 
             }
         }
@@ -50,5 +54,18 @@ class MySqlIndexDropScript extends AbstractDbBase
         }*/
 
     }
+
+
+
+    public function dropIndex($indexName)
+    {
+
+        $sqlParameter = new SqlStatement();
+        $sqlParameter->sql = 'ALTER TABLE `' . $this->tableName . '` DROP INDEX `' . $indexName . '`;';
+        $this->connection->execute($sqlParameter);
+
+    }
+
+
 
 }

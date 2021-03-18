@@ -18,6 +18,7 @@ class MySqlUniqueIndex extends AbstractMySqlIndex
     }
 
 
+    /*
     public function dropIndex()
     {
 
@@ -25,6 +26,6 @@ class MySqlUniqueIndex extends AbstractMySqlIndex
         $sqlParameter->sql = 'ALTER TABLE `' . $this->tableName . '` DROP INDEX `' . $this->indexName . '`;';
         $this->connection->execute($sqlParameter);
 
-    }
+    }*/
 
 }
