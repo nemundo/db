@@ -4,6 +4,7 @@ namespace Nemundo\Db\Provider\MySql\Field;
 
 use Nemundo\Db\Base\AbstractDbBase;
 use Nemundo\Db\Provider\MySql\Table\MySqlTable;
+use Nemundo\Db\Reader\SqlReader;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
 
 class MySqlField extends AbstractDbBase
@@ -116,14 +117,43 @@ class MySqlField extends AbstractDbBase
     }
 
 
+    public function existsField()
+    {
+
+        $value = false;
+
+        $sql = 'SELECT COUNT(1) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = "' . $this->connection->connectionParameter->database . '"' .
+            ' AND TABLE_NAME = "' . $this->tableName . '"' .
+            ' AND COLUMN_NAME = "' . $this->fieldName . '";';
+
+        $reader = new SqlReader();
+        $reader->connection = $this->connection;
+        $reader->sqlStatement->sql = $sql;
+        foreach ($reader->getData() as $row) {
+            if ($row->getValueByNumber(0) == 1) {
+                $value = true;
+            }
+        }
+
+        return $value;
+
+    }
+
+
     public function dropField()
     {
 
-        $sql = 'ALTER TABLE `' . $this->tableName . '` DROP COLUMN `' . $this->fieldName . '`;';
+        if ($this->existsField()) {
 
-        $sqlParameter = new SqlStatement();
-        $sqlParameter->sql = $sql;
-        $this->connection->execute($sqlParameter);
+            $sql = 'ALTER TABLE `' . $this->tableName . '` DROP COLUMN `' . $this->fieldName . '`;';
+
+            $sqlParameter = new SqlStatement();
+            $sqlParameter->sql = $sql;
+            $this->connection->execute($sqlParameter);
+
+        }
+
+        return $this;
 
     }
 
