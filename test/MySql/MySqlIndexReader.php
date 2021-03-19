@@ -2,9 +2,10 @@
 
 require __DIR__ . '/../config.php';
 
-$reader = new \Nemundo\Db\Provider\MySql\Index\MySqlIndexReader();
-$reader->tableName = 'geo_distance';
-$reader->existsIndex();
+$tableName = 'xcontest_flight';
+
+$reader =  new \Nemundo\Db\Provider\MySql\Index\Reader\MySqlIndexReader();
+$reader->tableName = $tableName;
 
 foreach ($reader->getData() as $mySqlIndex) {
     (new \Nemundo\Core\Debug\Debug())->write($mySqlIndex->indexName);

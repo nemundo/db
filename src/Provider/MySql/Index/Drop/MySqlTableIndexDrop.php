@@ -3,9 +3,9 @@
 namespace Nemundo\Db\Provider\MySql\Index\Drop;
 
 
-use Nemundo\Core\Debug\Debug;
 use Nemundo\Db\Base\AbstractDbBase;
 use Nemundo\Db\Provider\MySql\Index\Reader\MySqlIndexReader;
+use Nemundo\Db\Reader\SqlReader;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
 
 class MySqlTableIndexDrop extends AbstractDbBase
@@ -27,45 +27,51 @@ class MySqlTableIndexDrop extends AbstractDbBase
     {
 
         $indexReader = new MySqlIndexReader();
-        $indexReader->connection=$this->connection;
+        $indexReader->connection = $this->connection;
         $indexReader->tableName = $this->tableName;
         foreach ($indexReader->getData() as $indexRow) {
             if ($indexRow->indexName !== 'PRIMARY') {
-                //$keyNameList[] = $indexRow->indexName;
-
-                //$indexRow->dropIndex();
-
-                //(new Debug())->write($indexRow->indexName);
-
                 $this->dropIndex($indexRow->indexName);
-
-
             }
         }
 
-
-        /*
-        $keyNameList = array_unique($keyNameList);
-
-        foreach ($keyNameList as $keyName) {
-            $sqlParameter = new SqlStatement();
-            $sqlParameter->sql = 'ALTER TABLE `' . $this->tableName . '` DROP INDEX `' . $keyName . '`;';
-            $this->connection->execute($sqlParameter);
-        }*/
-
     }
 
+
+    public function existsIndex($indexName)
+    {
+
+        $value = false;
+
+        $sql = 'SHOW INDEX FROM `' . $this->tableName . '` WHERE Key_Name = "' . $indexName . '";';
+
+        $reader = new SqlReader();
+        $reader->connection = $this->connection;
+        $reader->sqlStatement->sql = $sql;
+        if ($reader->getCount() > 0) {
+            $value = true;
+        }
+
+        return $value;
+
+    }
 
 
     public function dropIndex($indexName)
     {
 
-        $sqlParameter = new SqlStatement();
-        $sqlParameter->sql = 'ALTER TABLE `' . $this->tableName . '` DROP INDEX `' . $indexName . '`;';
-        $this->connection->execute($sqlParameter);
+        if ($this->existsIndex($indexName)) {
+
+            $sql = 'ALTER TABLE `' . $this->tableName . '` DROP INDEX `' . $indexName . '`;';
+
+            $sqlParameter = new SqlStatement();
+            $sqlParameter->sql = $sql;
+            $this->connection->execute($sqlParameter);
+
+        }
+
+        return $this;
 
     }
-
-
 
 }

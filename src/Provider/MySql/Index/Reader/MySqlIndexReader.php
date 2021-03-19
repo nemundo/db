@@ -7,6 +7,10 @@ use Nemundo\Db\Base\AbstractDbDataSource;
 use Nemundo\Db\Provider\MySql\Table\MySqlTable;
 use Nemundo\Db\Reader\SqlReader;
 
+
+// Problem: nicht index, sondern fields
+
+
 class MySqlIndexReader extends AbstractDbDataSource
 {
 
@@ -27,7 +31,6 @@ class MySqlIndexReader extends AbstractDbDataSource
             return;
         }
 
-
         $this->checkConnection();
 
         $tableReader = new MySqlTable();
@@ -42,20 +45,12 @@ class MySqlIndexReader extends AbstractDbDataSource
 
             foreach ($reader->getData() as $row) {
 
-                $index = new MySqlIndexItem();  // new MySqlUniqueIndex();
+                $index = new MySqlIndexItem();
                 $index->tableName = $this->tableName;
                 $index->indexName = $row->getValue('key_name');
                 $index->columnName = $row->getValue('Column_name');
                 $index->indexType = $row->getValue('Index_type');
 
-
-                // $row->addText($index->getValue('Index_type'));
-
-                /*$tableField = new MySqlField();
-                $tableField->fieldName = $row->getValue('COLUMN_NAME');
-                $tableField->fieldType = $row->getValue('DATA_TYPE');
-                $tableField->fieldTypeLength = $row->getValue('CHARACTER_MAXIMUM_LENGTH');
-                $this->list[] = $tableField;*/
                 $this->addItem($index);
 
             }
@@ -86,6 +81,5 @@ class MySqlIndexReader extends AbstractDbDataSource
         return $exists;
 
     }
-
 
 }
