@@ -13,8 +13,8 @@ class MySqlVariable extends AbstractBase
     public function getValue($variableName)
     {
 
-        $query = new SqlReader();  // new MySqlQuery();  //new MySqlConnection();
-        $query->sqlStatement->sql = 'SHOW VARIABLES LIKE "' . $variableName . '"';   //->queryRow($statement);
+        $query = new SqlReader();
+        $query->sqlStatement->sql = 'SHOW VARIABLES LIKE "' . $variableName . '"';
         $row = $query->getRow();
         $value = $row->getValue('Value');
         return $value;

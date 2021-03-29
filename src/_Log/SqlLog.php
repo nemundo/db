@@ -1,6 +1,6 @@
 <?php
 
-namespace Nemundo\Db\Log;
+namespace Nemundo\Db\_Log;
 
 
 use Nemundo\Core\Base\AbstractBaseClass;
