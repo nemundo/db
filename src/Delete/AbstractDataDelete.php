@@ -4,10 +4,13 @@ namespace Nemundo\Db\Delete;
 
 use Nemundo\Db\Base\AbstractDbBase;
 use Nemundo\Db\Filter\Filter;
+use Nemundo\Db\Sql\Join\SqlJoinTrait;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
 
 abstract class AbstractDataDelete extends AbstractDbBase
 {
+
+    use SqlJoinTrait;
 
     /**
      * @var Filter
@@ -38,21 +41,25 @@ abstract class AbstractDataDelete extends AbstractDbBase
             return;
         }
 
-        $command = 'DELETE FROM `' . $this->tableName . '`';
+        $sql = 'DELETE `' . $this->tableName . '` FROM `' . $this->tableName . '`';
+
+        foreach ($this->joinList as $join) {
+            $sql .= $join->getSql();
+        }
+
 
         $whereSql = $this->filter->getSqlStatement()->sql;
 
         if ($whereSql !== '') {
-            $command .= ' WHERE ' . $whereSql;
+            $sql .= ' WHERE ' . $whereSql;
         }
 
         $sqlParameter = new SqlStatement();
-        $sqlParameter->sql = $command;
+        $sqlParameter->sql = $sql;
         $sqlParameter->addParameterList($this->filter->getSqlStatement()->getParameterList());
 
         $this->connection->execute($sqlParameter);
 
     }
-
 
 }

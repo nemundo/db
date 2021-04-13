@@ -13,7 +13,9 @@ abstract class AbstractSqlExecute extends AbstractDbBase
     {
 
         $this->loadConnection();
-        $this->connection->execute($sql);
+        $id = $this->connection->execute($sql);
+
+        return $id;
 
     }
 

@@ -11,7 +11,7 @@ class SqlExecute extends AbstractSqlExecute
 
     public function execute(SqlStatement $sql)
     {
-        parent::execute($sql);
+        return parent::execute($sql);
     }
 
 }

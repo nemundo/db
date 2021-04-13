@@ -3,6 +3,7 @@
 namespace Nemundo\Db\Data;
 
 
+use Nemundo\Db\Execute\SqlExecute;
 use Nemundo\Db\Sql\InsertQuery;
 
 
@@ -55,7 +56,15 @@ abstract class AbstractData extends AbstractDataUpdate
         $this->insertQuery->ignoreIfExists = $this->ignoreIfExists;
         $this->insertQuery->updateOnDuplicate = $this->updateOnDuplicate;
         $this->insertQuery->closeValuePart();
+
+
         $id = $this->connection->execute($this->insertQuery->getSqlParameter());
+
+
+        $execute = new SqlExecute();
+        $execute->connection=$this->connection;
+        $id =$execute->execute($this->insertQuery->getSqlParameter());
+
 
         return $id;
 

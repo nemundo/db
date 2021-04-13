@@ -31,5 +31,4 @@ class MySqlConnectionParameter
      */
     public $port = 3306;
 
-
 }
