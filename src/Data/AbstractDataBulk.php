@@ -4,6 +4,7 @@ namespace Nemundo\Db\Data;
 
 
 use Nemundo\Core\Directory\TextDirectory;
+use Nemundo\Db\Execute\SqlExecute;
 use Nemundo\Db\Sql\InsertQuery;
 
 abstract class AbstractDataBulk extends AbstractData
@@ -80,8 +81,12 @@ abstract class AbstractDataBulk extends AbstractData
             $this->insertQuery->ignoreIfExists = $this->ignoreIfExists;
             $this->insertQuery->updateOnDuplicate = $this->updateOnDuplicate;
 
-            $sqlParameter = $this->insertQuery->getSqlParameter();
-            $this->connection->execute($sqlParameter);
+            //$sqlParameter = $this->insertQuery->getSqlParameter();
+            //$this->connection->execute($sqlParameter);
+
+            $execute = new SqlExecute();
+            $execute->connection=$this->connection;
+            $execute->execute($this->insertQuery->getSqlParameter());
 
         }
 

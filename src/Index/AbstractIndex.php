@@ -49,7 +49,7 @@ abstract class AbstractIndex extends AbstractDbBase
         return $this;
     }
 
-
+/*
     public function createIndex()
     {
         $this->connection->execute($this->getSql());
@@ -59,7 +59,7 @@ abstract class AbstractIndex extends AbstractDbBase
 
     public function dropIndex() {
 
-    }
+    }*/
 
 
 }

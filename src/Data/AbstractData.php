@@ -57,14 +57,11 @@ abstract class AbstractData extends AbstractDataUpdate
         $this->insertQuery->updateOnDuplicate = $this->updateOnDuplicate;
         $this->insertQuery->closeValuePart();
 
-
-        $id = $this->connection->execute($this->insertQuery->getSqlParameter());
-
+        //$id = $this->connection->execute($this->insertQuery->getSqlParameter());
 
         $execute = new SqlExecute();
         $execute->connection=$this->connection;
         $id =$execute->execute($this->insertQuery->getSqlParameter());
-
 
         return $id;
 

@@ -3,6 +3,7 @@
 namespace Nemundo\Db\Delete;
 
 use Nemundo\Db\Base\AbstractDbBase;
+use Nemundo\Db\Execute\SqlExecute;
 use Nemundo\Db\Filter\Filter;
 use Nemundo\Db\Sql\Join\SqlJoinTrait;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
@@ -58,7 +59,12 @@ abstract class AbstractDataDelete extends AbstractDbBase
         $sqlParameter->sql = $sql;
         $sqlParameter->addParameterList($this->filter->getSqlStatement()->getParameterList());
 
-        $this->connection->execute($sqlParameter);
+        //$this->connection->execute($sqlParameter);
+
+        $execute = new SqlExecute();
+        $execute->connection=$this->connection;
+        $execute->execute($sqlParameter);
+
 
     }
 
