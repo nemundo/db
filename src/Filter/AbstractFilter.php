@@ -16,7 +16,7 @@ abstract class AbstractFilter extends AbstractBaseClass
      */
     private $sqlStatement;
 
-    private $filterCount = 0;
+    protected $filterCount = 0;
 
     abstract protected function loadFilter();
 
@@ -282,7 +282,7 @@ abstract class AbstractFilter extends AbstractBaseClass
         $part->type = $type;
         $part->includeParameter = false;
         $part->compareType = FilterCompareType::IS_NULL;
-        $part->filterLink=FilterLink::OR_LINK;
+        $part->filterLink = FilterLink::OR_LINK;
         $this->addFilterPart($part);
 
         return $this;
@@ -296,13 +296,11 @@ abstract class AbstractFilter extends AbstractBaseClass
         $part->type = $type;
         $part->includeParameter = false;
         $part->compareType = FilterCompareType::IS_NOT_NULL;
-        $part->filterLink=FilterLink::OR_LINK;
+        $part->filterLink = FilterLink::OR_LINK;
         $this->addFilterPart($part);
 
         return $this;
     }
-
-
 
 
     public function search($fieldName, $keyword)
