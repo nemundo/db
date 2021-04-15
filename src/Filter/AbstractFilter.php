@@ -27,7 +27,7 @@ abstract class AbstractFilter extends AbstractBaseClass
     }
 
 
-    public function andFilter(Filter $filter)
+    public function andFilter(AbstractFilter $filter)
     {
 
         if ($filter->isNotEmpty()) {
@@ -37,7 +37,7 @@ abstract class AbstractFilter extends AbstractBaseClass
     }
 
 
-    public function orFilter(Filter $filter)
+    public function orFilter(AbstractFilter $filter)
     {
         if ($filter->isNotEmpty()) {
             $this->addFilter($filter, FilterLink::OR_LINK);
@@ -365,9 +365,8 @@ abstract class AbstractFilter extends AbstractBaseClass
     }
 
 
-    private function addFilter(Filter $filter, $filterLink)
+    private function addFilter(AbstractFilter $filter, $filterLink)
     {
-
 
         if ($this->filterCount > 0) {
             $this->sqlStatement->sql .= ' ' . $filterLink . ' ';

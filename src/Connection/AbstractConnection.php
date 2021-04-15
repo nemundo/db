@@ -6,7 +6,6 @@ use Nemundo\Core\Base\AbstractBaseClass;
 use Nemundo\Core\Debug\Debug;
 use Nemundo\Core\Log\LogMessage;
 use Nemundo\Db\DbConfig;
-use Nemundo\Db\_Log\SqlLog;
 use Nemundo\Db\Sql\Parameter\SqlStatement;
 
 
