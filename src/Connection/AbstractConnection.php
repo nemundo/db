@@ -71,8 +71,33 @@ abstract class AbstractConnection extends AbstractBaseClass
 
     public function execute(SqlStatement $sqlStatement)
     {
+
+        $time = microtime(true);
+
         $this->prepareQuery($sqlStatement);
         $id = $this->pdo->lastInsertId();
+
+        //$time = round(microtime(true) - $time, 2);
+
+        $time = round(microtime(true) - $time, 2);
+        $this->slowQueryLog($time,$sqlStatement->sql);
+
+/*
+        if (DbConfig::$slowQueryLog) {
+
+            if ($time > DbConfig::$slowQueryLimit) {
+
+                $logFilename = DbConfig::$slowQueryLogPath . 'slow_query_'. date('Y-m-d') . '.txt';
+
+                $message = date('Y-m-d H:i:s') . ';' . $time . ';' . $sqlStatement->sql;
+                $file = fopen($logFilename, 'a');
+                fwrite($file, $message . PHP_EOL);
+                fclose($file);
+
+            }
+
+        }*/
+
         return $id;
     }
 
@@ -82,7 +107,10 @@ abstract class AbstractConnection extends AbstractBaseClass
 
         if (DbConfig::$logQuery) {
             (new SqlLog())->logSqlParameter($sqlStatement);
+
         }
+
+        $time = microtime(true);
 
         $data = [];
         $query = $this->prepareQuery($sqlStatement);
@@ -94,6 +122,27 @@ abstract class AbstractConnection extends AbstractBaseClass
             $errorMessage = 'Query Error: ' . $e->getMessage() . 'Sql: ' . $sqlStatement->sql;
             (new LogMessage())->writeError($errorMessage);
         }
+
+
+        $time = round(microtime(true) - $time, 2);
+        $this->slowQueryLog($time,$sqlStatement->sql);
+
+        /*
+        if (DbConfig::$slowQueryLog) {
+
+            if ($time > DbConfig::$slowQueryLimit) {
+
+                $logFilename = DbConfig::$slowQueryLogPath . date('Y-m-d') . '.txt';
+
+                $message = date('Y-m-d H:i:s') . ';' . $time . ';' . $sqlStatement->sql;
+                $file = fopen($logFilename, 'a');
+                fwrite($file, $message . PHP_EOL);
+                fclose($file);
+
+            }
+
+        }*/
+
 
         return $data;
 
@@ -212,6 +261,29 @@ abstract class AbstractConnection extends AbstractBaseClass
         }
 
         return $showErrorMessage;
+
+    }
+
+
+
+    private function slowQueryLog($time,$sql) {
+
+
+        if (DbConfig::$slowQueryLog) {
+
+            if ($time > DbConfig::$slowQueryLimit) {
+
+                $logFilename = DbConfig::$slowQueryLogPath . 'slow_query_'. date('Y-m-d') . '.txt';
+
+                $message = date('Y-m-d H:i:s') . ';' . $time . ';' . $sql;
+                $file = fopen($logFilename, 'a');
+                fwrite($file, $message . PHP_EOL);
+                fclose($file);
+
+            }
+
+        }
+
 
     }
 

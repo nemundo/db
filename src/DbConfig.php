@@ -27,11 +27,17 @@ class DbConfig
      * @var bool
      */
     public static $slowQueryLog = false;
+// logSlowQuery
 
     /**
      * @var float
      */
     public static $slowQueryLimit = 0.2;
+
+    /**
+     * @var string
+     */
+    public static $slowQueryLogPath;
 
 
 }
