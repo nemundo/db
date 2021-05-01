@@ -13,6 +13,10 @@ abstract class AbstractColumnField extends AbstractField
      */
     public $tableName;
 
+    // für Image
+    public $externalTableName;
+
+
     /**
      * @var string
      */
