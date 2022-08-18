@@ -1,0 +1,1 @@
+<?phpnamespace Nemundo\Db\Index;class LargeNumberIdPrimaryIndex extends AbstractPrimaryIndex{    protected function loadPrimaryIndex()    {        $this->primaryIndexId = '26f69908-2d67-4927-998a-9723bf2b05b8';        $this->primaryIndexLabel = 'Large Number Id';        $this->primaryIndexName='large_number_id';    }}

@@ -1,0 +1,1 @@
+<?phpnamespace Nemundo\Db\Provider\MySql\User;use Nemundo\Core\Base\AbstractBase;class MySqlUserItem extends AbstractBase{    public $user;    public $host;}

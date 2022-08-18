@@ -1,14 +1,1 @@
-<?php
-
-namespace Nemundo\Db\Sql;
-
-
-class SqlConfig
-{
-
-    /**
-     * @var int
-     */
-    public static $fieldCount = 0;
-
-}
+<?phpnamespace Nemundo\Db\Sql;class SqlConfig{    /**     * @var int     */    public static $fieldCount = 0;}

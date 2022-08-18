@@ -1,6 +1,1 @@
-InsertQuery
-SelectQuery
-UpdateQuery
-
-
-Nemundo/Db/Query
+InsertQuerySelectQueryUpdateQueryNemundo/Db/Query
