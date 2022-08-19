@@ -1,0 +1,1 @@
+<?phprequire __DIR__.'/../config.php';$conn = new \Nemundo\Db\Provider\MySql\Connection\MySqlConnection();$reader = new \Nemundo\Db\Reader\DataReader();$reader->connection = $conn;$reader->tableName='test_table';foreach ($reader->getData() as $dataRow) {    (new \Nemundo\Core\Debug\Debug())->write($dataRow->getValue('id'));}
